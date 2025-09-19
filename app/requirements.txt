@@ -17,6 +17,11 @@ pypdf2==3.0.1
 python-multipart==0.0.6
 unstructured==0.11.2
 
+# Hugging Face dataset integration (KAN-3)
+datasets==2.14.6
+transformers==4.35.2
+huggingface-hub==0.17.3
+
 # Vector operations
 numpy==1.24.3
 scipy==1.11.4
