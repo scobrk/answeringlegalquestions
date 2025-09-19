@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # RAGflow for document processing (KAN-3)
+  ragflow:
+    image: infiniflow/ragflow:latest
+    ports:
+      - "8080:80"
+    environment:
+      - PYTHONPATH=/ragflow
+    volumes:
+      - ./data:/ragflow/data
+      - ./docs:/ragflow/docs
+    networks:
+      - revenue_nsw_network
+
+  # FastAPI backend (KAN-4, KAN-5)
+  backend:
+    build:
+      context: ../app
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - RAGFLOW_URL=http://ragflow:80
+    depends_on:
+      - ragflow
+    volumes:
+      - ../app:/app
+    networks:
+      - revenue_nsw_network
+
+  # Streamlit frontend (KAN-6)
+  frontend:
+    build:
+      context: ../ui
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    volumes:
+      - ../ui:/ui
+    networks:
+      - revenue_nsw_network
+
+networks:
+  revenue_nsw_network:
+    driver: bridge
+
+volumes:
+  ragflow_data:
+  supabase_data:
