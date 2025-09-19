@@ -1,0 +1,38 @@
+# NSW Revenue AI Assistant Dependencies
+# KAN-6 Streamlit UI Requirements
+
+# Core framework
+streamlit>=1.28.0
+
+# AI and ML
+openai>=1.0.0
+
+# Database and vector search
+supabase>=2.0.0
+vecs>=0.4.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# HTTP and API
+requests>=2.31.0
+httpx>=0.24.0
+
+# Environment and configuration
+python-dotenv>=1.0.0
+
+# Date and time utilities
+python-dateutil>=2.8.0
+
+# Logging and monitoring
+structlog>=23.0.0
+
+# Development and testing (optional)
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Additional utilities
+pydantic>=2.0.0
+typing-extensions>=4.7.0
