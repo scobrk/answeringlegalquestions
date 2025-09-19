@@ -8,11 +8,17 @@ services:
       - "8080:80"
     environment:
       - PYTHONPATH=/ragflow
+      - PORT=80
     volumes:
       - ./data:/ragflow/data
       - ./docs:/ragflow/docs
     networks:
       - revenue_nsw_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # FastAPI backend (KAN-4, KAN-5)
   backend:
@@ -25,13 +31,21 @@ services:
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - RAGFLOW_URL=http://ragflow:80
+      - RAGFLOW_URL=${RAGFLOW_URL:-http://ragflow:80}
+      - PORT=8000
+      - ENVIRONMENT=${ENVIRONMENT:-production}
     depends_on:
-      - ragflow
+      ragflow:
+        condition: service_healthy
     volumes:
       - ../app:/app
     networks:
       - revenue_nsw_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Streamlit frontend (KAN-6)
   frontend:
@@ -41,13 +55,21 @@ services:
     ports:
       - "8501:8501"
     environment:
-      - BACKEND_URL=http://backend:8000
+      - BACKEND_URL=${BACKEND_URL:-http://backend:8000}
+      - PORT=8501
+      - ENVIRONMENT=${ENVIRONMENT:-production}
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     volumes:
       - ../ui:/ui
     networks:
       - revenue_nsw_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   revenue_nsw_network:
@@ -55,4 +77,4 @@ networks:
 
 volumes:
   ragflow_data:
-  supabase_data:
+  app_data:
