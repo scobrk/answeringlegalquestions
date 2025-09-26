@@ -1,13 +1,11 @@
 services:
   - type: web
-    name: nsw-revenue-ai-assistant
+    name: answeringlegalquestions
     env: python
     plan: free
     region: oregon
-    buildCommand: |
-      python -m pip install --upgrade pip setuptools wheel
-      pip install --no-cache-dir -r requirements-minimal.txt
-    startCommand: python fastapi_minimal.py
+    buildCommand: echo "No dependencies to install - using Python standard library only"
+    startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
