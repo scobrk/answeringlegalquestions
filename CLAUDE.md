@@ -31,11 +31,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### **Zero-Cost Architecture**
 - **Database**: Supabase PostgreSQL with pgvector (free tier)
 - **Document Processing**: RAGflow (self-hosted container)
-- **Backend**: FastAPI with Supabase integration
-- **Frontend**: Streamlit (no authentication required)
+- **Backend**: Netlify Functions (serverless)
+- **Frontend**: Static HTML/JS hosted on Netlify
 - **Vector Search**: pgvector extension in Supabase
 - **Storage**: Supabase Storage for document cache
-- **Deployment**: Railway/Render free tiers
+- **Deployment**: Netlify (free tier)
 - **LLM**: OpenAI GPT-3.5-turbo (pay-per-use only)
 - **Embeddings**: OpenAI text-embedding-3-small
 

@@ -507,11 +507,15 @@
             }
         };
 
-        function sendQuestion() {
+        // API endpoint for Netlify Functions
+        const API_URL = '/.netlify/functions/query';
+
+        async function sendQuestion() {
             const input = document.getElementById('questionInput');
             const messages = document.getElementById('chatMessages');
             const btn = document.getElementById('sendButton');
             const loading = document.getElementById('loading');
+            const sourcesContent = document.getElementById('sourcesContent');
 
             const q = input.value.trim();
             if (!q) return;
@@ -525,6 +529,83 @@
             input.value = '';
             btn.disabled = true;
             loading.style.display = 'block';
+            messages.scrollTop = messages.scrollHeight;
+
+            try {
+                // Call Netlify Function
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: q,
+                        enable_approval: true
+                    })
+                });
+
+                const data = await response.json();
+
+                // Add assistant response
+                const assistantMsg = document.createElement('div');
+                assistantMsg.className = 'message assistant-message';
+                assistantMsg.innerHTML = `
+                    <div class="message-content">
+                        ${data.content}
+                        ${data.confidence_score ? `<div style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">Confidence: ${(data.confidence_score * 100).toFixed(0)}% | Status: ${data.review_status}</div>` : ''}
+                    </div>
+                `;
+                messages.appendChild(assistantMsg);
+
+                // Update sources panel
+                if (data.citations && data.citations.length > 0) {
+                    let sourcesHTML = '';
+                    data.citations.forEach((citation, index) => {
+                        sourcesHTML += `
+                            <div class="source-card ${index === 0 ? 'active' : ''}">
+                                <div class="source-header">
+                                    <span class="source-title">Citation ${index + 1}</span>
+                                    <span class="source-confidence">Verified</span>
+                                </div>
+                                <div class="source-content">${citation}</div>
+                            </div>
+                        `;
+                    });
+
+                    if (data.source_documents && data.source_documents.length > 0) {
+                        data.source_documents.forEach(doc => {
+                            sourcesHTML += `
+                                <div class="source-card">
+                                    <div class="source-header">
+                                        <span class="source-title">${doc.title}</span>
+                                    </div>
+                                    <div class="source-content">${doc.content}</div>
+                                    ${doc.url ? `<a href="${doc.url}" target="_blank" class="source-link">View legislation ↗</a>` : ''}
+                                </div>
+                            `;
+                        });
+                    }
+                    sourcesContent.innerHTML = sourcesHTML;
+                } else {
+                    sourcesContent.innerHTML = '<p style="color: #666; text-align: center;">Processing query through dual-agent system...</p>';
+                }
+
+            } catch (error) {
+                console.error('API Error:', error);
+                // Fallback response
+                const assistantMsg = document.createElement('div');
+                assistantMsg.className = 'message assistant-message';
+                assistantMsg.innerHTML = `
+                    <div class="message-content">
+                        I apologize, but I'm having trouble processing your request. Please try again.
+                        <div style="margin-top: 10px; font-size: 0.9em; opacity: 0.7; color: #ff9800;">⚠️ Service temporarily unavailable</div>
+                    </div>
+                `;
+                messages.appendChild(assistantMsg);
+            }
+
+            btn.disabled = false;
+            loading.style.display = 'none';
             messages.scrollTop = messages.scrollHeight;
 
             // Simulate processing time
