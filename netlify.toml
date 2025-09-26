@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "echo 'No build needed - static site ready!'"
+  command = ""
 
 [[redirects]]
   from = "/health"
