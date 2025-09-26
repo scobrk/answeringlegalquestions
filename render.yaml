@@ -4,7 +4,10 @@ services:
     env: python
     plan: free
     region: oregon
-    buildCommand: echo "No dependencies to install - using Python standard library only"
+    buildCommand: |
+      echo "No dependencies needed - using only Python standard library"
+      echo "Skipping all pip installations"
+      python --version
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
