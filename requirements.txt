@@ -2,9 +2,9 @@
 # Consolidated for Render deployment
 
 # Build tools (required for Render)
-setuptools>=65.0.0
-wheel>=0.38.0
-pip>=22.0.0
+setuptools>=70.0.0
+wheel>=0.40.0
+pip>=23.0.0
 
 # FastAPI and server
 fastapi==0.104.1
@@ -25,11 +25,11 @@ langchain-community==0.0.8
 # Document processing
 pypdf2==3.0.1
 python-multipart==0.0.6
-unstructured==0.11.2
+# unstructured==0.11.2  # Temporarily disabled - causes build issues
 
-# Hugging Face dataset integration (KAN-3) - simplified
-datasets>=2.14.0,<3.0.0
-transformers>=4.35.0,<5.0.0
+# Hugging Face dataset integration (KAN-3) - simplified for Render build
+# datasets>=2.14.0,<3.0.0  # Temporarily disabled - causes build issues
+# transformers>=4.35.0,<5.0.0  # Temporarily disabled - causes build issues
 huggingface-hub>=0.17.0,<1.0.0
 
 # Vector operations - compatible versions
