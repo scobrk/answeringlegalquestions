@@ -2,29 +2,6 @@ services:
   - type: web
     name: answeringlegalquestions
     env: python
-    plan: free
-    region: oregon
-    buildCommand: |
-      echo "Build starting - no dependencies to install"
-      python3 --version
-      echo "Build complete - ready to start"
-    startCommand: python3 app.py
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-      - key: APP_ENV
-        value: production
-      - key: LOG_LEVEL
-        value: INFO
-      - key: PYTHONPATH
-        value: .
-      - key: PYTHONUNBUFFERED
-        value: 1
-      - key: SUPABASE_URL
-        sync: false
-      - key: SUPABASE_ANON_KEY
-        sync: false
-      - key: OPENAI_API_KEY
-        sync: false
+    buildCommand: "true"
+    startCommand: "python3 main.py"
     healthCheckPath: /health
-    autoDeploy: true
