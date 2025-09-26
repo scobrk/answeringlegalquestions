@@ -64,4 +64,4 @@ docker-compose up -d
 2. Update Jira progress as work advances
 3. Follow the MVP scope (see CLAUDE.md)
 4. Test incrementally
-5. Link commits to Jira items
+5. Link commits to Jira items# Deployment trigger: Sat 27 Sep 2025 09:46:26 AEST
