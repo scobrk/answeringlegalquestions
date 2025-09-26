@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced NSW Revenue Response Format Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            margin: 2rem;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Enhanced Response Container */
+        .response-container {
+            background: #ffffff;
+            border: 1px solid #e1e5e9;
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        /* Direct Answer Section */
+        .direct-answer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .direct-answer h3 {
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .direct-answer h3:before {
+            content: "💡";
+            margin-right: 0.5rem;
+        }
+
+        .direct-answer-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        /* Key Facts Cards */
+        .key-facts-section {
+            padding: 1.5rem;
+            background: #fdfdfe;
+        }
+
+        .key-facts-title {
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .key-facts-title:before {
+            content: "📊";
+            margin-right: 0.5rem;
+        }
+
+        .key-facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .key-fact-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-left: 4px solid #0066cc;
+        }
+
+        .key-fact-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0066cc;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .key-fact-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Legislative Citations */
+        .citations-section {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .citations-title {
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .citations-title:before {
+            content: "⚖️";
+            margin-right: 0.5rem;
+        }
+
+        .citation-card {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            margin: 0.75rem 0;
+            overflow: hidden;
+        }
+
+        .citation-header {
+            background: #e9ecef;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .citation-act {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .citation-relevance {
+            background: #28a745;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .citation-content {
+            padding: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #495057;
+            border-left: 3px solid #0066cc;
+            background: #f8f9fa;
+            margin: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Supporting Details Section */
+        .supporting-details {
+            padding: 1.5rem;
+            background: #ffffff;
+        }
+
+        .supporting-details-title {
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .supporting-details-title:before {
+            content: "📋";
+            margin-right: 0.5rem;
+        }
+
+        .supporting-details-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #495057;
+        }
+
+        /* Confidence Indicator */
+        .confidence-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .confidence-high {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Hover effects */
+        .key-fact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.15);
+            transition: all 0.2s ease;
+        }
+
+        .citation-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enhanced NSW Revenue Response Format</h1>
+        <p><strong>Demo:</strong> Improved response structure for complex tax information</p>
+
+        <div class="response-container">
+            <!-- Direct Answer Section -->
+            <div class="direct-answer">
+                <h3>Direct Answer</h3>
+                <div class="direct-answer-content">
+                    For the 2024-25 financial year, NSW payroll tax applies at a rate of 5.45% on taxable wages above the threshold of $1.2 million. Businesses with total Australian wages below this threshold are exempt from payroll tax obligations.
+                </div>
+                <div class="confidence-indicator confidence-high">
+                    High Confidence (92.5%)
+                </div>
+            </div>
+
+            <!-- Key Facts Section -->
+            <div class="key-facts-section">
+                <div class="key-facts-title">Key Facts</div>
+                <div class="key-facts-grid">
+                    <div class="key-fact-card">
+                        <span class="key-fact-value">5.45%</span>
+                        <span class="key-fact-label">Tax Rate</span>
+                    </div>
+                    <div class="key-fact-card">
+                        <span class="key-fact-value">$1.2M</span>
+                        <span class="key-fact-label">Threshold</span>
+                    </div>
+                    <div class="key-fact-card">
+                        <span class="key-fact-value">2024-25</span>
+                        <span class="key-fact-label">Financial Year</span>
+                    </div>
+                    <div class="key-fact-card">
+                        <span class="key-fact-value">21st</span>
+                        <span class="key-fact-label">Due Date</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Citations Section -->
+            <div class="citations-section">
+                <div class="citations-title">Legislative Citations</div>
+
+                <div class="citation-card">
+                    <div class="citation-header">
+                        <div class="citation-act">Payroll Tax Act 2007</div>
+                        <div class="citation-relevance">95% Relevant</div>
+                    </div>
+                    <div class="citation-content">
+                        "The rate of payroll tax for the 2024-25 financial year is 5.45% of taxable wages paid or payable by an employer whose total Australian wages for that financial year exceed $1,200,000."
+                    </div>
+                </div>
+
+                <div class="citation-card">
+                    <div class="citation-header">
+                        <div class="citation-act">Taxation Administration Act 1996</div>
+                        <div class="citation-relevance">87% Relevant</div>
+                    </div>
+                    <div class="citation-content">
+                        "Returns must be lodged and tax paid by the 21st day of each month following the month in which the wages were paid, unless an annual return arrangement applies."
+                    </div>
+                </div>
+
+                <div class="citation-card">
+                    <div class="citation-header">
+                        <div class="citation-act">Payroll Tax Regulation 2018</div>
+                        <div class="citation-relevance">78% Relevant</div>
+                    </div>
+                    <div class="citation-content">
+                        "For the purposes of determining liability, 'total Australian wages' includes wages paid by all related entities within the same group structure."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supporting Details Section -->
+            <div class="supporting-details">
+                <div class="supporting-details-title">Supporting Details</div>
+                <div class="supporting-details-content">
+                    <p><strong>Calculation Method:</strong> Payroll tax is calculated monthly on the total taxable wages paid during that month, applied at the rate of 5.45%.</p>
+
+                    <p><strong>Grouping Provisions:</strong> Related entities must combine their wages when determining if the threshold is exceeded. This includes subsidiaries, associated companies, and entities under common control.</p>
+
+                    <p><strong>Annual vs Monthly Returns:</strong> Businesses can apply for annual return arrangements if their estimated annual liability is under $20,000, allowing payment once per year instead of monthly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

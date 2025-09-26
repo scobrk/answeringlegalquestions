@@ -57,7 +57,8 @@ class ApproverAgent:
         self.openai_client = OpenAI(
             api_key=openai_api_key or os.getenv('OPENAI_API_KEY')
         )
-        self.llm_model = "gpt-3.5-turbo-16k"
+        # Cost-optimized model selection
+        self.llm_model = os.getenv('DEFAULT_MODEL', "gpt-4o-mini")  # Use consistent model
         self.temperature = 0.05  # Very low temperature for consistency
 
         # Initialize validation components
@@ -77,6 +78,7 @@ CRITICAL VALIDATION TASKS:
 3. COMPLETENESS: Ensure the response fully addresses the query
 4. ACCURACY: Identify any incorrect legal interpretations
 5. CLARITY: Assess if the response is clear and well-structured
+6. **INFORMATION REQUIREMENTS VALIDATION**: Verify that specific information requirements are comprehensive and actionable
 
 APPROVAL CRITERIA:
 - All legal claims must be supported by provided context
@@ -84,16 +86,18 @@ APPROVAL CRITERIA:
 - Response must be complete and directly answer the query
 - Legal interpretations must be accurate
 - Any calculations must be correct
+- **SPECIFIC INFORMATION REQUIREMENTS must be detailed, including exact forms, documents, values, thresholds, and data points needed**
 
-RESPONSE FORMAT:
+ENHANCED RESPONSE FORMAT:
 VALIDATION: [Pass/Fail with specific reasons]
 FACT_CHECK: [Score 0.0-1.0 with explanation]
 CITATIONS: [Valid/Invalid with specific issues]
 COMPLETENESS: [Complete/Incomplete with gaps identified]
-ENHANCEMENT_SUGGESTIONS: [Specific improvements needed]
+INFORMATION_REQUIREMENTS_CHECK: [Specific/Vague - assess if exact forms, documents, values are provided]
+ENHANCEMENT_SUGGESTIONS: [Specific improvements needed, including missing information requirements]
 OVERALL_DECISION: [Approve/Reject with reasoning]
 
-Be thorough and precise in your validation."""
+Be thorough and precise in your validation. Ensure responses provide specific, actionable information requirements that reference exact documentation and data needed."""
 
     def review_response(self, primary_response: PrimaryResponse,
                        original_query: str) -> Tuple[ApprovalDecision, FinalResponse]:
@@ -118,12 +122,15 @@ Be thorough and precise in your validation."""
             # Step 2: Fact-check response content
             fact_check_result = self._fact_check_response(primary_response, original_query)
 
-            # Step 3: LLM-based validation
+            # Step 3: Validate response precision and completeness
+            precision_validation = self._validate_response_precision(primary_response, original_query)
+
+            # Step 4: LLM-based validation
             llm_validation = self._llm_validate_response(primary_response, original_query)
 
-            # Step 4: Calculate approval decision
+            # Step 5: Calculate approval decision
             approval_decision = self._calculate_approval_decision(
-                citation_validation, fact_check_result, llm_validation, primary_response
+                citation_validation, fact_check_result, precision_validation, llm_validation, primary_response
             )
 
             # Step 5: Create final response
@@ -172,6 +179,63 @@ Be thorough and precise in your validation."""
         except Exception as e:
             logger.error(f"Citation validation failed: {e}")
             return {'citation_score': 0.3, 'issues': [f"Validation error: {e}"]}
+
+    def _validate_response_precision(self, response: PrimaryResponse, query: str) -> Dict:
+        """Validate response precision and completeness"""
+        try:
+            precision_result = {
+                'precision_score': 0.0,
+                'completeness_score': 0.0,
+                'issues': [],
+                'precision_checks': []
+            }
+
+            answer = response.answer
+
+            # Check 1: Response completeness
+            completeness_issues = []
+            if len(answer) < 200:
+                completeness_issues.append("Response too short for complex query")
+            if answer.endswith('...') or not answer.strip().endswith(('.', '!', '?', ':')):
+                completeness_issues.append("Response appears truncated")
+            if len(answer.split('.')) < 3:
+                completeness_issues.append("Response lacks detail")
+
+            # Check 2: Information specificity for information queries
+            info_keywords = ['information', 'required', 'need', 'provide', 'documents', 'forms']
+            if any(keyword in query.lower() for keyword in info_keywords):
+                specific_terms = ['form', 'report', 'certificate', 'registration', 'annual', 'monthly', 'return', 'levy', 'rate', 'threshold']
+                specific_count = sum(1 for term in specific_terms if term in answer.lower())
+
+                if specific_count < 3:
+                    completeness_issues.append("Lacks specific information requirements")
+                    precision_result['precision_checks'].append("Missing specific terminology")
+
+                # Check for structured format
+                if not any(char in answer for char in ['1.', '2.', '3.', '•', '-']):
+                    completeness_issues.append("Missing structured list format")
+                    precision_result['precision_checks'].append("No structured formatting")
+                else:
+                    precision_result['precision_checks'].append("Has structured formatting")
+
+            # Check 3: Numerical precision for calculation queries
+            calc_keywords = ['calculate', 'rate', 'amount', 'cost', 'fee', 'duty', 'tax']
+            if any(keyword in query.lower() for keyword in calc_keywords):
+                if not any(char in answer for char in ['$', '%', '.']):
+                    completeness_issues.append("Missing numerical values for calculation query")
+                else:
+                    precision_result['precision_checks'].append("Contains numerical values")
+
+            # Calculate scores
+            precision_result['completeness_score'] = max(0.0, 1.0 - (len(completeness_issues) * 0.2))
+            precision_result['precision_score'] = len(precision_result['precision_checks']) / 3.0  # Max 3 checks
+            precision_result['issues'] = completeness_issues
+
+            return precision_result
+
+        except Exception as e:
+            logger.error(f"Precision validation failed: {e}")
+            return {'precision_score': 0.3, 'completeness_score': 0.3, 'issues': [f"Validation error: {e}"]}
 
     def _fact_check_response(self, response: PrimaryResponse, query: str) -> Dict:
         """Fact-check the response content"""
@@ -323,35 +387,41 @@ Please validate this response according to the specified criteria."""
             return result
 
     def _calculate_approval_decision(self, citation_validation: Dict,
-                                   fact_check: Dict, llm_validation: Dict,
-                                   response: PrimaryResponse) -> ApprovalDecision:
+                                   fact_check: Dict, precision_validation: Dict,
+                                   llm_validation: Dict, response: PrimaryResponse) -> ApprovalDecision:
         """Calculate final approval decision"""
 
         # Collect all issues
         all_issues = []
         all_issues.extend(citation_validation.get('issues', []))
         all_issues.extend(fact_check.get('issues', []))
+        all_issues.extend(precision_validation.get('issues', []))
         all_issues.extend(llm_validation.get('issues', []))
 
         # Calculate component scores
         citation_score = citation_validation.get('citation_score', 0.5)
         fact_score = fact_check.get('fact_score', 0.5)
+        precision_score = precision_validation.get('precision_score', 0.5)
+        completeness_score = precision_validation.get('completeness_score', 0.7)
         llm_fact_score = llm_validation.get('fact_check_score', 0.5)
-        completeness_score = llm_validation.get('completeness_score', 0.7)
+        llm_completeness_score = llm_validation.get('completeness_score', 0.7)
 
-        # Weighted overall approval score
+        # Weighted overall approval score with precision validation
         overall_score = (
-            citation_score * 0.3 +
-            fact_score * 0.25 +
-            llm_fact_score * 0.25 +
-            completeness_score * 0.2
+            citation_score * 0.2 +
+            fact_score * 0.2 +
+            precision_score * 0.25 +
+            completeness_score * 0.25 +
+            llm_fact_score * 0.1
         )
 
-        # Approval decision logic
+        # Approval decision logic with precision requirements
         approval_criteria = [
             overall_score >= self.min_approval_confidence,
             len(all_issues) <= self.max_citation_issues,
             fact_score >= self.min_fact_check_score,
+            completeness_score >= 0.6,  # Require minimum completeness
+            precision_score >= 0.4,     # Require minimum precision
             llm_validation.get('validation_decision') != 'Fail'
         ]
 
@@ -502,7 +572,7 @@ Please validate this response according to the specified criteria."""
         try:
             # Test OpenAI connection
             test_response = self.openai_client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4.1-nano",
                 messages=[{"role": "user", "content": "test"}],
                 max_tokens=1
             )

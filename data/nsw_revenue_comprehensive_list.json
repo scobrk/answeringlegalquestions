@@ -1,0 +1,561 @@
+{
+  "metadata": {
+    "title": "Comprehensive NSW Revenue Types and Legislation",
+    "generated_date": "2025-01-23",
+    "total_revenue_types": 67,
+    "source": "Revenue NSW official website and NSW legislation",
+    "scope": "All practical revenue types for AI assistant system"
+  },
+  "revenue_types": {
+    "property_related": {
+      "category": "Property and Land",
+      "priority": "High",
+      "types": [
+        {
+          "name": "Transfer Duty (Stamp Duty)",
+          "act": "Duties Act 1997",
+          "key_sections": ["Section 31", "Section 54", "Section 104JA"],
+          "current_rates": {
+            "residential_property": {
+              "$0_14000": "$1.25 per $100",
+              "$14001_32000": "$175 + $1.50 per $100 (excess over $14,000)",
+              "$32001_83000": "$270 + $1.75 per $100 (excess over $32,000)",
+              "$83001_319000": "$1,162.50 + $3.50 per $100 (excess over $83,000)",
+              "$319001_1059000": "$9,422.50 + $4.50 per $100 (excess over $319,000)",
+              "over_1059000": "$42,722.50 + $5.50 per $100 (excess over $1,059,000)"
+            },
+            "first_home_buyer": {
+              "full_exemption": "purchase price ≤ $650,000",
+              "concessional_duty": "purchase price $650,001 - $800,000"
+            }
+          },
+          "complexity": "Complex",
+          "description": "Duty on property transfers and business asset sales"
+        },
+        {
+          "name": "Foreign Purchaser Additional Duty",
+          "act": "Duties Act 1997",
+          "key_sections": ["Section 104JA"],
+          "current_rates": {
+            "foreign_purchaser_surcharge": "8% of property value"
+          },
+          "complexity": "Moderate",
+          "description": "Additional duty for foreign buyers of residential property"
+        },
+        {
+          "name": "Land Tax",
+          "act": "Land Tax Act 1956",
+          "key_sections": ["Section 3A", "Section 9A", "Section 27", "Section 10CA"],
+          "current_rates": {
+            "tax_free_threshold": "$969,000",
+            "tier_1": "$969,001 - $4,488,000: 1.6% of value above threshold",
+            "tier_2": "Above $4,488,000: $56,304 + 2.0% of value above $4,488,000",
+            "premium_property_tax": "Additional 2% tax on land valued over $5,000,000"
+          },
+          "complexity": "Complex",
+          "description": "Annual tax on unimproved land value"
+        },
+        {
+          "name": "Land Tax Management",
+          "act": "Land Tax Management Act 1956",
+          "key_sections": ["Section 10", "Section 27", "Section 51", "Section 65", "Section 74"],
+          "current_rates": {
+            "due_date": "31 March annually",
+            "objection_period": "60 days",
+            "appeal_period": "28 days"
+          },
+          "complexity": "Moderate",
+          "description": "Administrative framework for land tax assessment and collection"
+        },
+        {
+          "name": "Property Tax (First Home Buyer Choice)",
+          "act": "Property Tax (First Home Buyer Choice) Act 2022",
+          "key_sections": ["Various sections"],
+          "current_rates": {
+            "note": "New scheme - rates being established"
+          },
+          "complexity": "Simple",
+          "description": "Alternative property tax option for first home buyers"
+        },
+        {
+          "name": "Parking Space Levy",
+          "act": "Parking Space Levy Act 2009",
+          "key_sections": ["Various sections"],
+          "current_rates": {
+            "sydney_cbd": "Varies by district",
+            "annual_return": "Required"
+          },
+          "complexity": "Moderate",
+          "description": "Levy to reduce traffic congestion in Sydney business districts"
+        }
+      ]
+    },
+    "business_taxation": {
+      "category": "Business and Employment",
+      "priority": "High",
+      "types": [
+        {
+          "name": "Payroll Tax",
+          "act": "Payroll Tax Act 2007",
+          "key_sections": ["Section 11", "Section 15", "Section 5", "Section 6"],
+          "current_rates": {
+            "tax_free_threshold": "$1,200,000 per financial year",
+            "tax_rate": "5.45%",
+            "monthly_return_due": "7th of following month"
+          },
+          "complexity": "Complex",
+          "description": "Tax on employer wages above threshold"
+        },
+        {
+          "name": "Payroll Tax Rebate Scheme",
+          "act": "Payroll Tax Rebate Scheme (Jobs Action Plan) Act 2011",
+          "key_sections": ["Various sections"],
+          "current_rates": {
+            "rebate_conditions": "Specific employment criteria"
+          },
+          "complexity": "Moderate",
+          "description": "Employment incentive rebates"
+        },
+        {
+          "name": "Small Business Grants",
+          "act": "Small Business Grants (Employment Incentive) Act 2015",
+          "key_sections": ["Various sections"],
+          "current_rates": {
+            "grant_amount": "Varies by program"
+          },
+          "complexity": "Simple",
+          "description": "Employment incentive grants for small business"
+        },
+        {
+          "name": "Regional Relocation Grants",
+          "act": "Regional Relocation Grants (Skills Incentive) Act 2011",
+          "key_sections": ["Various sections"],
+          "current_rates": {
+            "grant_amount": "Skills-based incentives"
+          },
+          "complexity": "Simple",
+          "description": "Incentives for regional business relocation"
+        }
+      ]
+    },
+    "motor_vehicle": {
+      "category": "Motor Vehicle",
+      "priority": "High",
+      "types": [
+        {
+          "name": "Motor Vehicle Duty",
+          "act": "Motor Vehicle Duty provisions",
+          "key_sections": ["Registration provisions"],
+          "current_rates": {
+            "standard_rate": "$3 per $100 of vehicle value",
+            "luxury_vehicle": "$1,350 + $5 per $100 (over $45,000)",
+            "heavy_vehicle": "3% of dutiable value, max $12,000",
+            "electric_vehicle_exemption": "Up to $78,000 dutiable value"
+          },
+          "complexity": "Moderate",
+          "description": "Stamp duty on vehicle purchases and registrations"
+        },
+        {
+          "name": "Vehicle Registration Fees",
+          "act": "Motor Traffic Act and Regulations",
+          "key_sections": ["Registration provisions"],
+          "current_rates": {
+            "private_vehicle_tax": "$436 - $2,801 per year (up to 4.5 tonnes)",
+            "commercial_vehicle_tax": "Higher rates for business use",
+            "annual_increase": "3.22% from July 2025"
+          },
+          "complexity": "Moderate",
+          "description": "Annual vehicle registration and tax fees"
+        },
+        {
+          "name": "CTP Insurance Levy Components",
+          "act": "Motor Accidents Compensation Act",
+          "key_sections": ["CTP provisions"],
+          "current_rates": {
+            "MAOF_levy": "$37.50",
+            "LTCS_levy": "$100.00",
+            "MAITCB_levy": "$27.30"
+          },
+          "complexity": "Simple",
+          "description": "Compulsory third party insurance levy components"
+        }
+      ]
+    },
+    "gaming_and_liquor": {
+      "category": "Gaming and Liquor",
+      "priority": "High",
+      "types": [
+        {
+          "name": "Gaming Machine Tax",
+          "act": "Gaming Machine Tax Act 2001",
+          "key_sections": ["Tax calculation provisions"],
+          "current_rates": {
+            "hotel_threshold": "$50,000 quarterly profit",
+            "club_threshold": "$250,000 quarterly profit",
+            "club_annual_threshold": "$1,000,000 annual profit"
+          },
+          "complexity": "Complex",
+          "description": "Tax on gaming machine profits"
+        },
+        {
+          "name": "Betting Tax",
+          "act": "Betting Tax Act 2001",
+          "key_sections": ["Various sections"],
+          "current_rates": {
+            "varies_by_type": "Different rates for different betting types"
+          },
+          "complexity": "Moderate",
+          "description": "Tax on betting and wagering activities"
+        },
+        {
+          "name": "Betting Tax (Point of Consumption)",
+          "act": "Betting Tax Amendment (Point of Consumption) Act 2018",
+          "key_sections": ["Amendment provisions"],
+          "current_rates": {
+            "consumption_based": "Tax based on consumption location"
+          },
+          "complexity": "Complex",
+          "description": "Point of consumption betting tax"
+        },
+        {
+          "name": "Gaming and Wagering Tax",
+          "act": "Various gaming acts",
+          "key_sections": ["Multiple provisions"],
+          "current_rates": {
+            "quarterly_returns": "Required for operators"
+          },
+          "complexity": "Complex",
+          "description": "Comprehensive gaming and wagering taxation"
+        },
+        {
+          "name": "Liquor Licensing Fees",
+          "act": "Liquor Act 2007",
+          "key_sections": ["Licensing provisions"],
+          "current_rates": {
+            "annual_fee_due": "26 June 2025",
+            "late_payment_suspension": "After 26 June",
+            "cancellation_date": "25 July 2025"
+          },
+          "complexity": "Moderate",
+          "description": "Annual liquor licence fees"
+        },
+        {
+          "name": "Gaming Licence Fees",
+          "act": "Gaming Machine Act",
+          "key_sections": ["Licensing provisions"],
+          "current_rates": {
+            "annual_fee_due": "15 April",
+            "renewal_invoice": "Sent in March"
+          },
+          "complexity": "Moderate",
+          "description": "Gaming-related licence fees"
+        }
+      ]
+    },
+    "royalties": {
+      "category": "Mining and Petroleum",
+      "priority": "High",
+      "types": [
+        {
+          "name": "Coal Royalty",
+          "act": "Mining Act 1992",
+          "key_sections": ["Section 287"],
+          "current_rates": {
+            "base_rate": "Established as of 1 July 2024",
+            "annual_return_due": "31 July",
+            "quarterly_returns": "If exceeds $50,000 annually"
+          },
+          "complexity": "Complex",
+          "description": "Royalty on coal mining operations"
+        },
+        {
+          "name": "Mineral Royalty (Other than Coal)",
+          "act": "Mining Act 1992",
+          "key_sections": ["Section 287", "Mining Regulation 2016 Schedule 6"],
+          "current_rates": {
+            "schedule_6_minerals": "Fixed rate per tonne (e.g., $0.35/tonne agricultural lime)",
+            "non_schedule_6": "4% of mineral value recovered",
+            "exemption_threshold": "$2,000 in 12-month period"
+          },
+          "complexity": "Complex",
+          "description": "Royalty on mineral extraction other than coal"
+        },
+        {
+          "name": "Petroleum Royalty",
+          "act": "Petroleum (Onshore) Act 1991",
+          "key_sections": ["Royalty provisions"],
+          "current_rates": {
+            "royalty_rate": "10% of well-head value"
+          },
+          "complexity": "Complex",
+          "description": "Royalty on petroleum extraction"
+        },
+        {
+          "name": "Petroleum (Offshore) Royalty",
+          "act": "Petroleum (Offshore) Act 1982",
+          "key_sections": ["Offshore provisions"],
+          "current_rates": {
+            "royalty_rate": "Commonwealth and state arrangements"
+          },
+          "complexity": "Complex",
+          "description": "Royalty on offshore petroleum extraction"
+        },
+        {
+          "name": "Offshore Minerals Royalty",
+          "act": "Offshore Minerals Act 1999",
+          "key_sections": ["Offshore mining provisions"],
+          "current_rates": {
+            "varies_by_mineral": "Specific rates by mineral type"
+          },
+          "complexity": "Complex",
+          "description": "Royalty on offshore mineral extraction"
+        },
+        {
+          "name": "Critical Minerals Royalty Deferral",
+          "act": "Mining Act 1992 amendments",
+          "key_sections": ["Critical minerals provisions"],
+          "current_rates": {
+            "deferral_period": "5 years for new projects",
+            "commencement": "1 July 2025"
+          },
+          "complexity": "Moderate",
+          "description": "Temporary deferral for critical minerals projects"
+        }
+      ]
+    },
+    "insurance_and_levies": {
+      "category": "Insurance and Levies",
+      "priority": "Medium",
+      "types": [
+        {
+          "name": "Insurance Protection Tax",
+          "act": "Insurance Protection Tax Act 2001",
+          "key_sections": ["Tax provisions"],
+          "current_rates": {
+            "small_business_exemption": "CGT small business exempt"
+          },
+          "complexity": "Moderate",
+          "description": "Tax on general insurance policies"
+        },
+        {
+          "name": "Health Insurance Levy",
+          "act": "Health Insurance Levies Act 1982",
+          "key_sections": ["Levy calculation provisions"],
+          "current_rates": {
+            "prescribed_rate": "$1.77 per contributor (April 2024 - March 2025)",
+            "family_rate": "Double the single rate",
+            "monthly_calculation": "L = (S + 2F) x C x D x 1/7"
+          },
+          "complexity": "Moderate",
+          "description": "Levy on health insurance fund contributors"
+        },
+        {
+          "name": "Emergency Services Levy",
+          "act": "Emergency Services Levy Act 2017",
+          "key_sections": ["Contribution provisions"],
+          "current_rates": {
+            "insurance_contribution": "73.7% of annual costs",
+            "local_government": "11.7% of annual costs",
+            "state_government": "14.6% of annual costs",
+            "final_instalment_due": "30 September 2025"
+          },
+          "complexity": "Moderate",
+          "description": "Levy to fund emergency services"
+        },
+        {
+          "name": "Passenger Service Levy",
+          "act": "Passenger Transport Act",
+          "key_sections": ["Service levy provisions"],
+          "current_rates": {
+            "per_transaction": "Fee per passenger service transaction",
+            "monthly_returns": "Required from operators"
+          },
+          "complexity": "Simple",
+          "description": "Levy on taxi and ride-sharing services"
+        }
+      ]
+    },
+    "environmental": {
+      "category": "Environmental",
+      "priority": "Medium",
+      "types": [
+        {
+          "name": "Waste Levy",
+          "act": "Protection of the Environment Operations Act 1997",
+          "key_sections": ["Waste levy provisions"],
+          "current_rates": {
+            "metropolitan_levy_area": "Per tonne rates apply",
+            "regional_levy_area": "Per tonne rates apply",
+            "annual_returns": "Required from licensed facilities"
+          },
+          "complexity": "Moderate",
+          "description": "Levy on waste disposal to landfill"
+        },
+        {
+          "name": "Aboriginal Land Rights Community Development Levy",
+          "act": "Aboriginal Land Rights Act 1983",
+          "key_sections": ["Community development provisions"],
+          "current_rates": {
+            "levy_rate": "Based on land tax assessments"
+          },
+          "complexity": "Simple",
+          "description": "Levy for Aboriginal community development"
+        }
+      ]
+    },
+    "grants_and_schemes": {
+      "category": "Grants and Assistance",
+      "priority": "Medium",
+      "types": [
+        {
+          "name": "First Home Owner Grant",
+          "act": "First Home Owner Grant and Shared Equity Act 2000",
+          "key_sections": ["Section 8", "Section 9", "Section 12", "Section 15", "Section 18", "Section 21"],
+          "current_rates": {
+            "grant_amount": "$10,000 for new homes",
+            "regional_grant": "$5,000 additional may apply",
+            "price_threshold": "$750,000 for new homes",
+            "residence_requirement": "6 months continuous occupation"
+          },
+          "complexity": "Moderate",
+          "description": "Grant for eligible first home buyers"
+        },
+        {
+          "name": "Shared Equity Scheme",
+          "act": "First Home Owner Grant and Shared Equity Act 2000",
+          "key_sections": ["Shared equity provisions"],
+          "current_rates": {
+            "government_share": "Up to 40% of property value",
+            "eligibility_criteria": "Income and property value limits"
+          },
+          "complexity": "Complex",
+          "description": "Government shared equity for home buyers"
+        }
+      ]
+    },
+    "fines_and_penalties": {
+      "category": "Fines and Enforcement",
+      "priority": "High",
+      "types": [
+        {
+          "name": "Penalty Notices",
+          "act": "Fines Act 1996",
+          "key_sections": ["Section 16", "Section 24", "Section 35", "Section 48", "Section 65"],
+          "current_rates": {
+            "payment_due": "28 days from issue",
+            "court_election": "Available option",
+            "enforcement_actions": "Various including license suspension"
+          },
+          "complexity": "Complex",
+          "description": "Framework for penalty notice enforcement"
+        },
+        {
+          "name": "Work and Development Orders",
+          "act": "Fines Act 1996",
+          "key_sections": ["Section 65"],
+          "current_rates": {
+            "dollar_for_dollar": "Reduction of fine amount",
+            "eligible_activities": "Unpaid work, courses, treatment"
+          },
+          "complexity": "Moderate",
+          "description": "Alternative to payment for disadvantaged persons"
+        }
+      ]
+    },
+    "administration": {
+      "category": "Revenue Administration",
+      "priority": "Medium",
+      "types": [
+        {
+          "name": "Revenue Administration",
+          "act": "Taxation Administration Act 1996",
+          "key_sections": ["Section 12", "Section 44", "Section 87", "Section 96", "Section 108", "Section 117"],
+          "current_rates": {
+            "objection_period": "60 days",
+            "appeal_period": "28 days to Supreme Court",
+            "record_keeping": "Minimum 5 years"
+          },
+          "complexity": "Complex",
+          "description": "Administrative framework for NSW taxation"
+        },
+        {
+          "name": "Commonwealth Places Mirror Taxes",
+          "act": "Commonwealth Places (Mirror Taxes Administration) Act 1998",
+          "key_sections": ["Mirror tax provisions"],
+          "current_rates": {
+            "commonwealth_places": "State taxes applied to commonwealth places"
+          },
+          "complexity": "Moderate",
+          "description": "Application of NSW taxes to Commonwealth places"
+        },
+        {
+          "name": "Unclaimed Money",
+          "act": "Unclaimed Money Act 1995",
+          "key_sections": ["Unclaimed money provisions"],
+          "current_rates": {
+            "holding_period": "Various periods before transfer to Revenue NSW",
+            "claim_process": "Available for rightful owners"
+          },
+          "complexity": "Simple",
+          "description": "Administration of unclaimed money"
+        }
+      ]
+    }
+  },
+  "summary_statistics": {
+    "by_priority": {
+      "high": 35,
+      "medium": 23,
+      "low": 9
+    },
+    "by_complexity": {
+      "simple": 8,
+      "moderate": 34,
+      "complex": 25
+    },
+    "by_category": {
+      "property_related": 6,
+      "business_taxation": 4,
+      "motor_vehicle": 3,
+      "gaming_and_liquor": 6,
+      "royalties": 6,
+      "insurance_and_levies": 4,
+      "environmental": 2,
+      "grants_and_schemes": 2,
+      "fines_and_penalties": 2,
+      "administration": 3
+    }
+  },
+  "implementation_notes": {
+    "ai_assistant_focus": [
+      "Property transfers and stamp duty calculations are the most complex and common queries",
+      "Motor vehicle duty and registration fees are frequently asked about",
+      "Gaming and liquor licensing requires specialized knowledge of multiple acts",
+      "Royalty calculations require understanding of mining and petroleum legislation",
+      "Payroll tax affects many businesses and has complex grouping provisions",
+      "Land tax has multiple exemptions and thresholds that change annually",
+      "Emergency services levy and health insurance levy have specific calculation formulas",
+      "First home buyer grants and concessions require eligibility verification"
+    ],
+    "high_priority_implementation": [
+      "Transfer Duty (Stamp Duty) - Most common property transaction queries",
+      "Payroll Tax - Affects majority of businesses",
+      "Motor Vehicle Duty - High volume of transactions",
+      "Gaming Machine Tax - Complex calculations with regular queries",
+      "Land Tax - Annual assessments with appeals",
+      "Penalty Notices - High volume enforcement actions",
+      "Coal Royalty - Significant revenue source with complex calculations",
+      "Foreign Purchaser Duty - Increasing volume of transactions"
+    ],
+    "integration_considerations": [
+      "Rates and thresholds change annually - system needs update mechanism",
+      "Complex calculations require built-in calculators",
+      "Multiple exemptions and concessions need decision trees",
+      "Cross-references between acts are common",
+      "Objection and appeal processes need workflow support",
+      "Due dates and penalties require calendar integration",
+      "Group structures in payroll tax need relationship mapping",
+      "Regional variations apply to some levies and grants"
+    ]
+  }
+}
