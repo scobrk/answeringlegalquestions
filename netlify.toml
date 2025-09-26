@@ -1,16 +1,19 @@
+# Netlify configuration - Redirect to FastAPI backend
+# This site serves only the frontend, backend is deployed separately on Render
+
 [build]
   publish = "."
-  functions = "netlify/functions"
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF"
+  ignore = "/bin/false"  # Skip build entirely - this is just a redirect
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://nsw-revenue-ai-assistant.onrender.com/api/:splat"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/health"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/chat"
-  to = "/index.html"
+  to = "https://nsw-revenue-ai-assistant.onrender.com/health"
   status = 200
 
 [[redirects]]

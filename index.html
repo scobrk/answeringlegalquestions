@@ -510,7 +510,7 @@
         // API endpoint for the ACTUAL FastAPI backend with dual-agent system
         const API_URL = window.location.hostname === 'localhost'
             ? 'http://localhost:8000/api/query'
-            : '/api/query';  // Production FastAPI endpoint
+            : '/api/query';  // Proxies to Render backend via Netlify redirect
 
         async function sendQuestion() {
             const input = document.getElementById('questionInput');
