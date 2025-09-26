@@ -507,8 +507,10 @@
             }
         };
 
-        // API endpoint for Netlify Functions - using contextual query from actual legislation
-        const API_URL = '/.netlify/functions/query';
+        // API endpoint for the ACTUAL FastAPI backend with dual-agent system
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:8000/api/query'
+            : '/api/query';  // Production FastAPI endpoint
 
         async function sendQuestion() {
             const input = document.getElementById('questionInput');
