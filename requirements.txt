@@ -1,6 +1,11 @@
 # NSW Revenue AI Assistant - Production Dependencies
 # Consolidated for Render deployment
 
+# Build tools (required for Render)
+setuptools>=65.0.0
+wheel>=0.38.0
+pip>=22.0.0
+
 # FastAPI and server
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
@@ -22,14 +27,14 @@ pypdf2==3.0.1
 python-multipart==0.0.6
 unstructured==0.11.2
 
-# Hugging Face dataset integration (KAN-3)
-datasets==2.14.6
-transformers==4.35.2
-huggingface-hub==0.17.3
+# Hugging Face dataset integration (KAN-3) - simplified
+datasets>=2.14.0
+transformers>=4.35.0
+huggingface-hub>=0.17.0
 
-# Vector operations
-numpy==1.24.3
-scipy==1.11.4
+# Vector operations - compatible versions
+numpy>=1.24.0,<2.0.0
+scipy>=1.11.0
 
 # Data handling
 pandas==2.1.3
