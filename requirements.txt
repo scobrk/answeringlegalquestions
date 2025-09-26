@@ -1,7 +1,0 @@
-# Requirements for Netlify Python Functions
-# Minimal dependencies for serverless
-openai==1.3.0
-numpy==1.24.3
-faiss-cpu==1.7.4
-sentence-transformers==2.2.2
-python-dotenv==1.0.0
