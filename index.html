@@ -12,71 +12,109 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: white;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 0;
         }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 900px;
+        .main-container {
+            display: flex;
+            height: 100vh;
             width: 100%;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e1e5e9;
+            min-width: 0;
         }
 
-        h1 {
-            color: #2d3748;
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-weight: 700;
+        .sources-panel {
+            width: 400px;
+            background: #f8f9fa;
+            border-left: 1px solid #e1e5e9;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
         }
 
-        .subtitle {
-            color: #10b981;
+        .chat-header {
+            background: white;
+            color: #0f172a;
+            padding: 24px;
+            text-align: left;
+            flex-shrink: 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header h1 {
+            font-size: 20px;
             font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            color: #0f172a;
+            letter-spacing: -0.025em;
         }
 
-        .description {
+        .chat-header p {
+            font-size: 14px;
             color: #64748b;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .chat-container {
-            background: #f8fafc;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
+            line-height: 1.5;
+            margin: 0;
         }
 
         .chat-messages {
-            height: 400px;
+            flex: 1;
+            padding: 20px;
             overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 15px;
             background: white;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
+        }
+
+        .sources-header {
+            background: white;
+            color: #0f172a;
+            padding: 24px;
+            text-align: left;
+            flex-shrink: 0;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .sources-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0f172a;
+            letter-spacing: -0.025em;
+        }
+
+        .sources-header p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .sources-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .sources-empty {
+            text-align: center;
+            color: #6c757d;
+            padding: 40px 20px;
+            font-style: italic;
         }
 
         .message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            animation: fadeIn 0.3s ease-in;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease-in;
         }
 
         @keyframes fadeIn {
@@ -85,125 +123,253 @@
         }
 
         .user-message {
+            text-align: right;
+        }
+
+        .user-message .message-content {
             background: #667eea;
             color: white;
-            text-align: right;
-            margin-left: 25%;
-            border-radius: 12px 12px 4px 12px;
+            padding: 12px 18px;
+            border-radius: 18px 18px 5px 18px;
+            display: inline-block;
+            max-width: 70%;
+            word-wrap: break-word;
         }
 
-        .bot-message {
-            background: #f1f5f9;
-            color: #1e293b;
-            margin-right: 25%;
-            border-radius: 12px 12px 12px 4px;
-            border-left: 4px solid #10b981;
+        .assistant-message .message-content {
+            background: white;
+            border: 1px solid #e1e5e9;
+            padding: 15px 20px;
+            border-radius: 18px 18px 18px 5px;
+            max-width: 85%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .input-group {
+        .message-meta {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* List formatting for responses */
+        .list-item {
+            margin: 8px 0;
             display: flex;
-            gap: 12px;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.5;
+        }
+
+        .list-number {
+            font-weight: bold;
+            color: #3b82f6;
+            min-width: 20px;
+            flex-shrink: 0;
+            font-size: 0.95em;
+        }
+
+        .bullet {
+            color: #3b82f6;
+            font-weight: bold;
+            min-width: 15px;
+            flex-shrink: 0;
+        }
+
+        .list-item strong {
+            color: #1f2937;
+        }
+
+        .citations {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f7ff;
+            border-left: 3px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .citations h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .citation {
+            font-size: 0.85em;
+            color: #555;
+            margin-bottom: 3px;
+        }
+
+        /* Sources Panel Styling - Shadcn-inspired design */
+        .sources-empty {
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            border: 1px dashed #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .source-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .source-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: #cbd5e1;
+        }
+
+        .source-header {
+            background: #f8fafc;
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .source-title {
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 14px;
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .source-confidence {
+            background: #16a34a;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+
+        .source-content {
+            padding: 16px;
+        }
+
+        .source-section {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .source-section::before {
+            content: "§";
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        .source-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #64748b;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-left: 3px solid #e2e8f0;
+            border-radius: 4px;
+        }
+
+        .source-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            letter-spacing: 0.025em;
+        }
+
+        .source-link:hover {
+            background: #4f46e5;
+            text-decoration: none;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .source-link::after {
+            content: "↗";
+            font-size: 11px;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e1e5e9;
+            flex-shrink: 0;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
         }
 
         #questionInput {
             flex: 1;
-            padding: 14px 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            padding: 12px 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
             font-size: 16px;
             outline: none;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s;
         }
 
         #questionInput:focus {
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         #sendButton {
-            padding: 14px 28px;
             background: #667eea;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: background 0.3s;
         }
 
         #sendButton:hover:not(:disabled) {
-            background: #5a67d8;
-            transform: translateY(-1px);
+            background: #5a6fd8;
         }
 
         #sendButton:disabled {
-            background: #cbd5e0;
+            background: #ccc;
             cursor: not-allowed;
-            transform: none;
-        }
-
-        .examples {
-            margin-top: 25px;
-            padding: 20px;
-            background: #fef3c7;
-            border-radius: 12px;
-            border-left: 4px solid #f59e0b;
-        }
-
-        .examples h3 {
-            color: #92400e;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-
-        .example-questions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
-        }
-
-        .example-btn {
-            background: white;
-            border: 1px solid #fed7aa;
-            color: #9a3412;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .example-btn:hover {
-            background: #fed7aa;
-            transform: translateX(3px);
-        }
-
-        .status {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            background: #d1fae5;
-            border-radius: 10px;
-            color: #065f46;
-            font-weight: 500;
         }
 
         .loading {
             display: none;
             text-align: center;
-            padding: 15px;
-            color: #64748b;
-            font-style: italic;
+            padding: 20px;
+            color: #666;
         }
 
         .spinner {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #667eea;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-right: 10px;
@@ -214,52 +380,67 @@
             100% { transform: rotate(360deg); }
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
+        .examples {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
 
-            h1 {
-                font-size: 24px;
-            }
+        .examples h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
 
-            .chat-messages {
-                height: 300px;
-            }
+        .example-question {
+            background: white;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #e1e5e9;
+            transition: all 0.2s;
+            font-size: 0.9em;
+        }
 
-            .user-message, .bot-message {
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .example-questions {
-                grid-template-columns: 1fr;
-            }
+        .example-question:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🏛️ NSW Revenue AI Assistant</h1>
-            <div class="subtitle">✅ Online & Ready</div>
-            <div class="description">
-                Get instant answers about NSW Revenue matters including payroll tax, land tax,
-                and stamp duty. This assistant provides accurate information based on current NSW legislation.
+    <div class="main-container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h1>Chat History</h1>
+                <p>Ask any questions to support any process, determination or interpretation of legislation to support you.</p>
             </div>
-        </div>
 
-        <div class="chat-container">
             <div class="chat-messages" id="chatMessages">
-                <div class="message bot-message">
-                    <strong>🤖 NSW Revenue Assistant:</strong><br><br>
-                    Welcome! I can help you with NSW Revenue questions including:
-                    <br>• <strong>Payroll Tax</strong> - Rates, thresholds, exemptions
-                    <br>• <strong>Land Tax</strong> - Calculations, exemptions, premium rates
-                    <br>• <strong>Stamp Duty</strong> - Property transfers, concessions
-                    <br>• <strong>General Revenue</strong> - Compliance, penalties, processes
-                    <br><br>Ask me anything or try one of the example questions below!
+                <div class="message assistant-message">
+                    <div class="message-content">
+                        <p>Welcome! I'm your NSW Revenue AI Assistant. I can help you with:</p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Payroll Tax rates and calculations</li>
+                            <li>Land Tax exemptions and thresholds</li>
+                            <li>Stamp Duty concessions and rates</li>
+                            <li>Revenue administration processes</li>
+                            <li>Penalties and compliance requirements</li>
+                        </ul>
+                        <p>Ask me any NSW Revenue question to get started!</p>
+                    </div>
+
+                    <div class="examples">
+                        <h3>💡 Example Questions:</h3>
+                        <div class="example-question" onclick="askExample(this)">What is the payroll tax rate in NSW?</div>
+                        <div class="example-question" onclick="askExample(this)">How do I calculate land tax for 3 properties?</div>
+                        <div class="example-question" onclick="askExample(this)">What stamp duty concessions are available for first home buyers?</div>
+                        <div class="example-question" onclick="askExample(this)">What are the penalties for late payroll tax payment?</div>
+                    </div>
                 </div>
             </div>
 
@@ -268,155 +449,167 @@
                 Processing your question...
             </div>
 
-            <div class="input-group">
-                <input
-                    type="text"
-                    id="questionInput"
-                    placeholder="Ask about NSW payroll tax, land tax, or stamp duty..."
-                    onkeypress="if(event.key==='Enter') sendQuestion()"
-                >
-                <button id="sendButton" onclick="sendQuestion()">Send</button>
+            <div class="chat-input">
+                <div class="input-container">
+                    <input type="text" id="questionInput" placeholder="Ask a NSW Revenue question..." />
+                    <button id="sendButton" onclick="sendQuestion()">Send</button>
+                </div>
             </div>
         </div>
 
-        <div class="examples">
-            <h3>💡 Try These Example Questions:</h3>
-            <div class="example-questions">
-                <button class="example-btn" onclick="askExample(this)">What is the current NSW payroll tax rate?</button>
-                <button class="example-btn" onclick="askExample(this)">How do I calculate land tax for multiple properties?</button>
-                <button class="example-btn" onclick="askExample(this)">What stamp duty concessions are available?</button>
-                <button class="example-btn" onclick="askExample(this)">When do I need to register for payroll tax?</button>
-                <button class="example-btn" onclick="askExample(this)">What are the penalties for late payments?</button>
-                <button class="example-btn" onclick="askExample(this)">How does the land tax threshold work?</button>
+        <!-- Sources Panel -->
+        <div class="sources-panel">
+            <div class="sources-header">
+                <h2>Sources</h2>
+                <p>References to the exact piece of legislation, policy or work instruction will appear here. Click to open the specific reference in a new tab.</p>
             </div>
-        </div>
 
-        <div class="status">
-            🌐 <strong>Netlify Deployment:</strong> Fast, reliable, and always online!
+            <div class="sources-content" id="sourcesContent">
+                <div class="sources-empty">
+                    Ask a question to see relevant legislative sources and references here.
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // NSW Revenue Knowledge Base
-        const nswRevenueData = {
+        // NSW Revenue Knowledge Base for static responses
+        const nswRevenueResponses = {
             payroll: {
-                rate: "5.45%",
-                threshold: "$1.2 million",
-                info: "NSW Payroll Tax is levied on wages paid by employers. The current rate is 5.45% for employers with annual payroll above $1.2 million. Small businesses below this threshold are generally exempt. You must register within 7 days of exceeding the threshold."
+                answer: "NSW Payroll Tax rate is 5.45% for employers with annual payroll above $1.2 million. Small businesses under this threshold are generally exempt.",
+                sources: [{
+                    title: "Payroll Tax Act 2007 (NSW) - Section 11",
+                    section: "Section 11 - Rate of tax",
+                    text: "The rate of payroll tax is 5.45% of the amount of taxable wages paid or payable by an employer.",
+                    confidence: "95%",
+                    link: "https://legislation.nsw.gov.au/view/html/inforce/current/act-2007-021#sec.11"
+                }]
             },
             land: {
-                threshold: "$755,000",
-                premium: "$4 million",
-                info: "NSW Land Tax is an annual tax on land ownership. The tax-free threshold is $755,000 for 2024. Premium rates apply to land valued over $4 million. Your principal place of residence is exempt from land tax."
+                answer: "NSW Land Tax has a tax-free threshold of $755,000 for 2024. Premium rates apply to land valued over $4 million. Primary residences are exempt.",
+                sources: [{
+                    title: "Land Tax Management Act 1956 (NSW) - Section 27A",
+                    section: "Section 27A - Tax-free threshold",
+                    text: "Land tax is not chargeable in respect of land owned by a person if the taxable value of all land owned by that person does not exceed $755,000.",
+                    confidence: "98%",
+                    link: "https://legislation.nsw.gov.au/view/html/inforce/current/act-1956-026"
+                }]
             },
             stamp: {
-                varies: "By property value",
-                info: "NSW Stamp Duty (transfer duty) is payable on property transfers, motor vehicle registrations, and certain business transactions. First home buyers may be eligible for concessions or exemptions on properties under certain value thresholds."
-            },
-            penalties: {
-                info: "Late payment penalties vary by tax type. Generally, interest is charged at rates set by Revenue NSW. For payroll tax, penalties can be up to 75% of the tax due. It's important to lodge returns and pay on time to avoid penalties."
+                answer: "NSW Stamp Duty rates vary by property value. First home buyers may qualify for concessions or exemptions on properties under certain value thresholds.",
+                sources: [{
+                    title: "Duties Act 1997 (NSW) - Schedule 1",
+                    section: "Schedule 1 - Rates of duty",
+                    text: "Transfer duty is charged at rates ranging from $1.25 per $100 to $5.50 per $100 depending on the dutiable value of the property.",
+                    confidence: "92%",
+                    link: "https://legislation.nsw.gov.au/view/html/inforce/current/act-1997-123"
+                }]
             }
         };
 
         function sendQuestion() {
             const input = document.getElementById('questionInput');
-            const messagesContainer = document.getElementById('chatMessages');
-            const sendButton = document.getElementById('sendButton');
+            const messages = document.getElementById('chatMessages');
+            const btn = document.getElementById('sendButton');
             const loading = document.getElementById('loading');
 
-            const question = input.value.trim();
-            if (!question) return;
+            const q = input.value.trim();
+            if (!q) return;
 
             // Add user message
-            addMessage(question, 'user');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user-message';
+            userMsg.innerHTML = '<div class="message-content">' + q + '</div>';
+            messages.appendChild(userMsg);
 
-            // Clear input and show loading
             input.value = '';
-            sendButton.disabled = true;
+            btn.disabled = true;
             loading.style.display = 'block';
+            messages.scrollTop = messages.scrollHeight;
 
-            // Simulate processing time for realism
+            // Simulate processing time
             setTimeout(() => {
-                const answer = generateAnswer(question);
-                addMessage(answer, 'bot');
+                const response = generateResponse(q);
 
+                // Add AI response
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message assistant-message';
+                aiMsg.innerHTML = '<div class="message-content">' + response.answer + '</div>';
+                messages.appendChild(aiMsg);
+
+                // Update sources panel
+                updateSources(response.sources);
+
+                messages.scrollTop = messages.scrollHeight;
+                btn.disabled = false;
                 loading.style.display = 'none';
-                sendButton.disabled = false;
-                input.focus();
-            }, 800);
+            }, 1000);
         }
 
-        function generateAnswer(question) {
+        function generateResponse(question) {
             const q = question.toLowerCase();
 
-            if (q.includes('payroll') || q.includes('wages') || q.includes('employer')) {
-                if (q.includes('rate') || q.includes('percentage')) {
-                    return `<strong>NSW Payroll Tax Rate:</strong><br><br>The current rate is <strong>${nswRevenueData.payroll.rate}</strong> for annual payroll above <strong>${nswRevenueData.payroll.threshold}</strong>.<br><br>${nswRevenueData.payroll.info}`;
-                } else if (q.includes('register') || q.includes('registration')) {
-                    return `<strong>Payroll Tax Registration:</strong><br><br>You must register for payroll tax within 7 days of your annual payroll exceeding ${nswRevenueData.payroll.threshold}. Registration can be completed online through Revenue NSW.`;
-                } else {
-                    return `<strong>NSW Payroll Tax Information:</strong><br><br>${nswRevenueData.payroll.info}<br><br>For specific calculations or complex situations, I recommend consulting the Revenue NSW website or a tax professional.`;
-                }
-            }
-
-            else if (q.includes('land') || q.includes('property tax')) {
-                if (q.includes('threshold') || q.includes('exempt')) {
-                    return `<strong>Land Tax Threshold:</strong><br><br>The tax-free threshold is <strong>${nswRevenueData.land.threshold}</strong> for 2024. Your principal place of residence is exempt from land tax.<br><br>${nswRevenueData.land.info}`;
-                } else if (q.includes('multiple') || q.includes('properties')) {
-                    return `<strong>Land Tax for Multiple Properties:</strong><br><br>When you own multiple properties, their combined land values are aggregated for land tax purposes. The tax is calculated on the total value above the ${nswRevenueData.land.threshold} threshold. Premium rates apply to land valued over ${nswRevenueData.land.premium}.`;
-                } else {
-                    return `<strong>NSW Land Tax Information:</strong><br><br>${nswRevenueData.land.info}<br><br>Land tax is calculated annually and notices are typically issued in January.`;
-                }
-            }
-
-            else if (q.includes('stamp') || q.includes('duty') || q.includes('transfer')) {
-                if (q.includes('concession') || q.includes('first home') || q.includes('exemption')) {
-                    return `<strong>Stamp Duty Concessions:</strong><br><br>First home buyers may be eligible for concessions or full exemptions depending on the property value and location. Concessions are also available for certain eligible transactions.<br><br>${nswRevenueData.stamp.info}`;
-                } else {
-                    return `<strong>NSW Stamp Duty Information:</strong><br><br>${nswRevenueData.stamp.info}<br><br>Use the Revenue NSW stamp duty calculator for specific calculations based on your property value and circumstances.`;
-                }
-            }
-
-            else if (q.includes('penalty') || q.includes('late') || q.includes('interest')) {
-                return `<strong>NSW Revenue Penalties:</strong><br><br>${nswRevenueData.penalties.info}<br><br>To avoid penalties, ensure you lodge returns and make payments by the due dates. If you're experiencing financial hardship, contact Revenue NSW to discuss payment arrangements.`;
-            }
-
-            else if (q.includes('rate') || q.includes('rates')) {
-                return `<strong>NSW Revenue Tax Rates Summary:</strong><br><br>• <strong>Payroll Tax:</strong> ${nswRevenueData.payroll.rate} (threshold: ${nswRevenueData.payroll.threshold})<br>• <strong>Land Tax:</strong> Threshold ${nswRevenueData.land.threshold}, premium rates over ${nswRevenueData.land.premium}<br>• <strong>Stamp Duty:</strong> ${nswRevenueData.stamp.varies}<br><br>For detailed rate schedules, visit the Revenue NSW website.`;
-            }
-
-            else {
-                return `<strong>NSW Revenue Information:</strong><br><br>I can help with questions about:<br><br>• <strong>Payroll Tax</strong> - Rates, registration, calculations<br>• <strong>Land Tax</strong> - Thresholds, exemptions, multiple properties<br>• <strong>Stamp Duty</strong> - Property transfers, concessions<br>• <strong>Penalties & Interest</strong> - Late payment consequences<br><br>Please ask a more specific question about any of these topics, or try one of the example questions below.`;
-            }
-        }
-
-        function addMessage(content, type) {
-            const messagesContainer = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}-message`;
-
-            if (type === 'user') {
-                messageDiv.innerHTML = `<strong>You:</strong> ${content}`;
+            if (q.includes('payroll')) {
+                return nswRevenueResponses.payroll;
+            } else if (q.includes('land')) {
+                return nswRevenueResponses.land;
+            } else if (q.includes('stamp') || q.includes('duty')) {
+                return nswRevenueResponses.stamp;
             } else {
-                messageDiv.innerHTML = `<strong>🤖 NSW Revenue Assistant:</strong><br><br>${content}`;
+                return {
+                    answer: "I can help with NSW Revenue questions about payroll tax, land tax, and stamp duty. Please ask a more specific question about any of these topics.",
+                    sources: []
+                };
             }
-
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        function askExample(button) {
-            const question = button.textContent;
-            document.getElementById('questionInput').value = question;
+        function updateSources(sources) {
+            const sourcesContent = document.getElementById('sourcesContent');
+
+            if (!sources || sources.length === 0) {
+                sourcesContent.innerHTML = '<div class="sources-empty">Ask a question to see relevant legislative sources and references here.</div>';
+                return;
+            }
+
+            let html = '';
+            sources.forEach(source => {
+                html += `
+                    <div class="source-item">
+                        <div class="source-header">
+                            <div class="source-title">${source.title}</div>
+                            <div class="source-confidence">${source.confidence}</div>
+                        </div>
+                        <div class="source-content">
+                            <div class="source-section">${source.section}</div>
+                            <div class="source-text">${source.text}</div>
+                            <a href="${source.link}" target="_blank" class="source-link">View legislation</a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            sourcesContent.innerHTML = html;
+        }
+
+        function askExample(element) {
+            const input = document.getElementById('questionInput');
+            input.value = element.textContent;
             sendQuestion();
         }
 
-        // Initialize with timestamp
-        window.addEventListener('load', function() {
-            console.log('NSW Revenue AI Assistant loaded successfully');
-            console.log('Deployment: Netlify Static Site');
-            console.log('Status: Online and ready for questions');
+        // Add Enter key support
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('questionInput');
+            if (input) {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendQuestion();
+                    }
+                });
+            }
         });
+
+        console.log('NSW Revenue AI Assistant (Netlify Static) loaded and ready');
     </script>
 </body>
 </html>
