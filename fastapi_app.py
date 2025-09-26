@@ -74,17 +74,30 @@ manager = ConnectionManager()
 
 @app.on_event("startup")
 async def startup_event():
-    """Initialize agents on startup"""
+    """Initialize agents on startup with graceful fallback"""
     global classification_agent, orchestrator
 
     try:
         logger.info("Initializing NSW Revenue AI Assistant...")
+
+        # Check required environment variables
+        required_env_vars = []
+        if not os.getenv('OPENAI_API_KEY'):
+            logger.warning("OPENAI_API_KEY not set - running in demo mode")
+            required_env_vars.append('OPENAI_API_KEY')
+
+        # Initialize with fallback handling
         classification_agent = ClassificationAgent()
         orchestrator = LocalDualAgentOrchestrator()
+
         logger.info("✅ All agents initialized successfully")
+        if required_env_vars:
+            logger.warning(f"⚠️  Missing environment variables: {required_env_vars}")
+
     except Exception as e:
         logger.error(f"❌ Failed to initialize agents: {e}")
-        raise
+        # Don't raise - allow server to start for health checks
+        logger.warning("⚠️  Server starting without full agent functionality")
 
 @app.get("/health")
 async def health_check():
@@ -103,6 +116,17 @@ async def chat_endpoint(request: dict):
         question = request.get('question', '')
         if not question:
             return {"error": "No question provided"}
+
+        # Check if agents are initialized
+        if not orchestrator:
+            return {
+                "answer": "I'm sorry, the AI system is not fully initialized. Please check that all environment variables are set correctly.",
+                "confidence": 0.0,
+                "processing_time": 0.0,
+                "approval_status": "error",
+                "source_count": 0,
+                "source_documents": []
+            }
 
         # Process with dual agent system
         response = orchestrator.process_query(question)
@@ -761,10 +785,14 @@ async def health_check():
 if __name__ == "__main__":
     print("🚀 Starting NSW Revenue AI Assistant (FastAPI)")
     print("=" * 50)
+
+    # Use PORT from environment (Render sets this) or default to 8080
+    port = int(os.getenv("PORT", 8080))
+
     uvicorn.run(
         "fastapi_app:app",
         host="0.0.0.0",
-        port=8080,
+        port=port,
         reload=False,
         log_level="info"
     )

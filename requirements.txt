@@ -28,9 +28,9 @@ python-multipart==0.0.6
 unstructured==0.11.2
 
 # Hugging Face dataset integration (KAN-3) - simplified
-datasets>=2.14.0
-transformers>=4.35.0
-huggingface-hub>=0.17.0
+datasets>=2.14.0,<3.0.0
+transformers>=4.35.0,<5.0.0
+huggingface-hub>=0.17.0,<1.0.0
 
 # Vector operations - compatible versions
 numpy>=1.24.0,<2.0.0
