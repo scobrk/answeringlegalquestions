@@ -1,6 +1,16 @@
 # Vercel Python Serverless Function Requirements
-# Minimal dependencies for serverless environment
+# COMPLETE dual-agent system dependencies
 
 # Core AI
 openai==1.3.0
 python-dotenv==1.0.0
+
+# Vector store and embeddings - FULL CAPABILITY
+numpy==1.24.3
+faiss-cpu==1.9.0.post1
+
+# Text processing for dual-agent system
+sentence-transformers==2.2.2
+requests==2.31.0
+beautifulsoup4==4.12.2
+markdown==3.5.1
