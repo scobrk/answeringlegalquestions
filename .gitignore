@@ -1,0 +1,190 @@
+# Environment variables and secrets - CRITICAL SECURITY
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+config.json
+auth.json
+credentials.json
+service-account.json
+.streamlit/secrets.toml
+
+# API keys and credentials (additional safety)
+*api_key*
+*secret*
+*token*
+*credential*
+*password*
+*auth*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Logs
+*.log
+logs/
+log/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache directories
+.cache/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# AI/ML specific
+models/
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.model
+
+# Vector indexes and data (project-specific)
+data/vector_index/
+data/vector_indexes/
+data/hf_cache/
+data/backup_*/
+data/metadata/
+data/legislation/
+data/legislation_v2/
+
+# Local development
+.streamlit/config.toml
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage reports
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Translations
+*.mo
+*.pot
+
+# Documentation builds
+docs/_build/
+
+# Package management
+Pipfile.lock
+poetry.lock
+
+# Local testing and development
+test_data/
+sample_data/
+debug/
+
+# Render deployment files (keep render.yaml but ignore logs)
+render-logs/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Docker
+.dockerignore
+Dockerfile.local
