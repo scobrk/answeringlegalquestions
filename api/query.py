@@ -12,28 +12,45 @@ from http.server import BaseHTTPRequestHandler
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-# Import the ACTUAL COMPLETE dual-agent system
+# Import the COMPLETE dual-agent system with NSW Revenue vector store
+orchestrator = None
+orchestrator_type = "None"
+
 try:
+    # Force load of all ML dependencies first
+    import numpy
+    import faiss
+    from sentence_transformers import SentenceTransformer
+    print("✅ All ML dependencies loaded successfully")
+
+    # Now load the full local dual-agent orchestrator
     from agents.local_dual_agent_orchestrator import LocalDualAgentOrchestrator
     orchestrator = LocalDualAgentOrchestrator()
-    print("Successfully loaded LocalDualAgentOrchestrator")
+    orchestrator_type = "LocalDualAgentOrchestrator"
+    print("✅ Successfully loaded LocalDualAgentOrchestrator with full NSW Revenue capabilities")
+
 except ImportError as e:
-    print(f"LocalDualAgentOrchestrator import error: {e}")
-    # Fallback to Vercel-compatible orchestrator
+    print(f"❌ ML Dependencies missing: {e}")
     try:
+        # Fallback to Vercel-compatible orchestrator
         from agents.vercel_dual_agent_orchestrator import VercelDualAgentOrchestrator
         orchestrator = VercelDualAgentOrchestrator()
-        print("Successfully loaded VercelDualAgentOrchestrator")
+        orchestrator_type = "VercelDualAgentOrchestrator"
+        print("⚠️ Using simplified VercelDualAgentOrchestrator (limited capability)")
     except ImportError as e2:
-        print(f"VercelDualAgentOrchestrator import error: {e2}")
-        # Final fallback to basic orchestrator
+        print(f"❌ VercelDualAgentOrchestrator import error: {e2}")
+        # Final fallback
         try:
             from agents.dual_agent_orchestrator import DualAgentOrchestrator
             orchestrator = DualAgentOrchestrator()
-            print("Successfully loaded DualAgentOrchestrator")
+            orchestrator_type = "DualAgentOrchestrator"
+            print("⚠️ Using basic DualAgentOrchestrator")
         except Exception as e3:
-            print(f"Failed to load any orchestrator: {e3}")
+            print(f"❌ Failed to load any orchestrator: {e3}")
             orchestrator = None
+            orchestrator_type = "None"
+
+print(f"🔧 Active orchestrator: {orchestrator_type}")
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -65,27 +82,52 @@ class handler(BaseHTTPRequestHandler):
                     'review_status': 'error'
                 }
             elif orchestrator:
-                # Process through the ACTUAL dual-agent system
+                # Process through the ACTUAL dual-agent system with full NSW Revenue capabilities
                 result = orchestrator.process_query(
                     query=query,
                     enable_approval=data.get('enable_approval', True),
                     include_metadata=data.get('include_metadata', True)
                 )
 
-                response = {
-                    'content': result.final_response.content,
-                    'confidence_score': result.final_response.confidence_score,
-                    'citations': result.final_response.citations,
-                    'source_documents': result.final_response.source_documents,
-                    'review_status': result.final_response.review_status,
-                    'specific_information_required': result.final_response.specific_information_required,
-                    'processing_metadata': {
-                        'primary_confidence': result.primary_response.confidence,
-                        'approval_decision': result.approval_decision.is_approved,
-                        'processing_time': result.total_processing_time,
-                        'timestamp': result.timestamp.isoformat()
+                # Format response based on orchestrator type
+                if orchestrator_type == "LocalDualAgentOrchestrator":
+                    # Full local system response format
+                    response = {
+                        'content': result.final_response.content,
+                        'confidence_score': result.final_response.confidence_score,
+                        'citations': result.final_response.citations,
+                        'source_documents': result.final_response.source_documents,
+                        'review_status': result.final_response.review_status,
+                        'specific_information_required': result.final_response.specific_information_required,
+                        'processing_metadata': {
+                            'orchestrator': orchestrator_type,
+                            'primary_confidence': result.primary_response.confidence,
+                            'approval_decision': result.approval_decision.is_approved,
+                            'processing_time': result.total_processing_time,
+                            'timestamp': result.timestamp.isoformat(),
+                            'has_vector_search': True,
+                            'nsw_revenue_coverage': '67 revenue types'
+                        }
                     }
-                }
+                else:
+                    # Fallback orchestrator response format
+                    response = {
+                        'content': result.final_response.content,
+                        'confidence_score': result.final_response.confidence_score,
+                        'citations': result.final_response.citations,
+                        'source_documents': result.final_response.source_documents,
+                        'review_status': result.final_response.review_status,
+                        'specific_information_required': getattr(result.final_response, 'specific_information_required', None),
+                        'processing_metadata': {
+                            'orchestrator': orchestrator_type,
+                            'primary_confidence': result.primary_response.confidence,
+                            'approval_decision': result.approval_decision.is_approved,
+                            'processing_time': result.total_processing_time,
+                            'timestamp': result.timestamp.isoformat(),
+                            'has_vector_search': False,
+                            'note': 'Limited capability - missing ML dependencies'
+                        }
+                    }
             else:
                 # Fallback if orchestrator fails to load
                 response = {
