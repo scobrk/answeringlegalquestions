@@ -11,13 +11,17 @@
   ],
   "functions": {
     "api/test.py": {
-      "memory": 512,
-      "maxDuration": 15
+      "memory": 256,
+      "maxDuration": 10
     },
     "api/query.py": {
       "memory": 2048,
       "maxDuration": 60,
       "includeFiles": "{data/vector_index/**,data/legislation_v2/**,data/metadata/**,data/hybrid_cache/**,agents/**}"
+    },
+    "api/query_supabase.py": {
+      "memory": 512,
+      "maxDuration": 30
     },
     "api/health.py": {
       "memory": 256,
