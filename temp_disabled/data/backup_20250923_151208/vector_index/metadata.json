@@ -1,0 +1,6 @@
+{
+  "total_documents": 7,
+  "embedding_model": "text-embedding-3-small",
+  "dimension": 1536,
+  "created_at": 1758256243.789866
+}

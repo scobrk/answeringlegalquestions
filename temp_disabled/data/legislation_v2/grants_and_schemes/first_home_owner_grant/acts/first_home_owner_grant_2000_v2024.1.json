@@ -1,0 +1,73 @@
+{
+  "document_id": "first_home_owner_grant_2000_v2024.1",
+  "document_metadata": {
+    "title": "First Home Owner Grant 2000 (NSW)",
+    "short_title": "First Home Owner Grant 2000",
+    "act_number": "2000 No [Number TBD]",
+    "jurisdiction": "NSW",
+    "document_type": "act",
+    "category": "grants_and_schemes.first_home_owner_grant",
+    "subcategory": "first_home_buyer_assistance",
+    "effective_date": "2024-01-01T00:00:00Z",
+    "last_amended": "2024-03-15T00:00:00Z",
+    "next_review_date": "2025-06-30T00:00:00Z",
+    "status": "current",
+    "authoritative_source": "https://legislation.nsw.gov.au/view/html/inforce/current/first_home_owner_grant_2000",
+    "revenue_office_url": "https://revenue.nsw.gov.au/taxes-duties-levies-royalties/grants",
+    "version": "2024.1",
+    "supersedes": [],
+    "language": "en-AU"
+  },
+  "content_structure": {
+    "total_sections": 1,
+    "parts": [],
+    "schedules": [],
+    "appendices": []
+  },
+  "tax_characteristics": {
+    "revenue_type": "grants",
+    "tax_base": "not_applicable",
+    "rate_structure": "not_applicable",
+    "collection_method": "application_based",
+    "filing_frequency": "application_based",
+    "applies_to": [
+      "individuals",
+      "companies",
+      "trusts"
+    ],
+    "geographic_scope": "statewide",
+    "exemptions_available": true,
+    "concessions_available": true,
+    "penalties_applicable": true
+  },
+  "relationships": {
+    "related_taxes": [
+      {
+        "tax_id": "duties_act_1997",
+        "relationship_type": "alternative",
+        "description": "First home buyer exemptions may reduce stamp duty",
+        "interaction_rules": "grant_may_reduce_duty_liability"
+      }
+    ],
+    "dependent_legislation": [
+      "revenue_administration_act_1996"
+    ],
+    "cross_references": []
+  },
+  "rate_information": {
+    "current_rates_file": "grants_rates_2024.json",
+    "rate_change_frequency": "annual",
+    "last_rate_change": "2024-01-01T00:00:00Z",
+    "indexation_method": "manual"
+  },
+  "processing_metadata": {
+    "chunk_count": 1,
+    "embedding_model": "text-embedding-3-small",
+    "embedding_dimension": 1536,
+    "last_processed": "2025-09-23T15:12:30.755498",
+    "processing_version": "2.1.0",
+    "quality_score": 0.95,
+    "completeness_score": 0.98
+  },
+  "content": "\nFirst Home Owner Grant (New Homes) Act 2000 (NSW)\n\nThe First Home Owner Grant assists eligible first home buyers with the purchase or construction of a new home.\n\nGRANT AMOUNT:\n\u2022 $10,000 for new homes or substantially renovated homes\n\u2022 Additional regional grant of $5,000 may apply\n\u2022 One grant per person/couple\n\nELIGIBILITY CRITERIA:\n\u2022 Australian citizen or permanent resident\n\u2022 At least 18 years of age\n\u2022 Never owned residential property in Australia\n\u2022 Never received FHOG or similar grant before\n\u2022 Contract price up to $750,000 (new homes)\n\nRESIDENCE REQUIREMENT:\n\u2022 Must live in the home as principal residence\n\u2022 Continuous occupation for at least 6 months\n\u2022 Must commence within 12 months of completion\n\nAPPLICATION PROCESS:\n\u2022 Apply to Revenue NSW\n\u2022 Submit within 12 months of home completion\n\u2022 Provide required documentation\n\u2022 Grant paid after settlement/completion\n\nNEW HOME DEFINITION:\n\u2022 Never been occupied as a residence\n\u2022 Substantially renovated home (major reconstruction)\n\u2022 House and land packages\n\u2022 Off-the-plan purchases\n\nRECOVERY:\n\u2022 Grant must be repaid if eligibility requirements not met\n\u2022 False information results in recovery action\n\u2022 Penalties for fraudulent applications\n\nKey legislation sections:\n\u2022 Section 8: Eligibility criteria\n\u2022 Section 9: Grant amount\n\u2022 Section 12: Residence requirement\n\u2022 Section 15: Application process\n\u2022 Section 18: Recovery provisions\n\u2022 Section 21: Offences\n"
+}

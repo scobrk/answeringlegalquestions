@@ -1,0 +1,38 @@
+{
+  "rate_schedule_id": "land_tax_rates_2024",
+  "tax_type": "land_tax",
+  "effective_from": "2024-01-01T00:00:00Z",
+  "effective_to": "2024-12-31T23:59:59Z",
+  "rate_structure": "progressive",
+  "currency": "AUD",
+  "rate_tables": {
+    "general_rate": {
+      "thresholds": [
+        {
+          "min_value": 0,
+          "max_value": 755000,
+          "rate": 0.0,
+          "rate_type": "percentage",
+          "fixed_amount": 0,
+          "description": "Tax-free threshold"
+        },
+        {
+          "min_value": 755001,
+          "max_value": 4615000,
+          "rate": 0.015,
+          "rate_type": "percentage",
+          "fixed_amount": 0,
+          "description": "1.5% on excess over $755,000"
+        },
+        {
+          "min_value": 4615001,
+          "max_value": null,
+          "rate": 0.02,
+          "rate_type": "percentage",
+          "fixed_amount": 57900,
+          "description": "2.0% on excess over $4,615,000"
+        }
+      ]
+    }
+  }
+}

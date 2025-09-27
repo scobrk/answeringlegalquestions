@@ -1,0 +1,30 @@
+{
+  "rate_schedule_id": "payroll_tax_rates_2024",
+  "tax_type": "payroll_tax",
+  "effective_from": "2024-01-01T00:00:00Z",
+  "effective_to": "2024-12-31T23:59:59Z",
+  "rate_structure": "flat",
+  "currency": "AUD",
+  "rate_tables": {
+    "general_rate": {
+      "thresholds": [
+        {
+          "min_value": 0,
+          "max_value": 1300000,
+          "rate": 0.0,
+          "rate_type": "percentage",
+          "fixed_amount": 0,
+          "description": "Tax-free threshold - $1.3M annually"
+        },
+        {
+          "min_value": 1300001,
+          "max_value": null,
+          "rate": 0.0545,
+          "rate_type": "percentage",
+          "fixed_amount": 0,
+          "description": "5.45% on excess over $1.3M"
+        }
+      ]
+    }
+  }
+}

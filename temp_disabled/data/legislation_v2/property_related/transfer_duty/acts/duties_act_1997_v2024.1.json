@@ -1,0 +1,73 @@
+{
+  "document_id": "duties_act_1997_v2024.1",
+  "document_metadata": {
+    "title": "Duties Act 1997 (NSW)",
+    "short_title": "Duties Act 1997",
+    "act_number": "1997 No [Number TBD]",
+    "jurisdiction": "NSW",
+    "document_type": "act",
+    "category": "property_related.transfer_duty",
+    "subcategory": "conveyance_duty",
+    "effective_date": "2024-01-01T00:00:00Z",
+    "last_amended": "2024-03-15T00:00:00Z",
+    "next_review_date": "2025-06-30T00:00:00Z",
+    "status": "current",
+    "authoritative_source": "https://legislation.nsw.gov.au/view/html/inforce/current/duties_act_1997",
+    "revenue_office_url": "https://revenue.nsw.gov.au/taxes-duties-levies-royalties/duties",
+    "version": "2024.1",
+    "supersedes": [],
+    "language": "en-AU"
+  },
+  "content_structure": {
+    "total_sections": 1,
+    "parts": [],
+    "schedules": [],
+    "appendices": []
+  },
+  "tax_characteristics": {
+    "revenue_type": "duties",
+    "tax_base": "transaction_value",
+    "rate_structure": "progressive",
+    "collection_method": "self_assessment",
+    "filing_frequency": "transaction_based",
+    "applies_to": [
+      "individuals",
+      "companies",
+      "trusts"
+    ],
+    "geographic_scope": "statewide",
+    "exemptions_available": true,
+    "concessions_available": true,
+    "penalties_applicable": true
+  },
+  "relationships": {
+    "related_taxes": [
+      {
+        "tax_id": "land_tax_act_1956",
+        "relationship_type": "complementary",
+        "description": "Land tax may apply to same property",
+        "interaction_rules": "stamp_duty_at_purchase_land_tax_annually"
+      }
+    ],
+    "dependent_legislation": [
+      "revenue_administration_act_1996"
+    ],
+    "cross_references": []
+  },
+  "rate_information": {
+    "current_rates_file": "duties_rates_2024.json",
+    "rate_change_frequency": "annual",
+    "last_rate_change": "2024-01-01T00:00:00Z",
+    "indexation_method": "manual"
+  },
+  "processing_metadata": {
+    "chunk_count": 1,
+    "embedding_model": "text-embedding-3-small",
+    "embedding_dimension": 1536,
+    "last_processed": "2025-09-23T15:12:30.756807",
+    "processing_version": "2.1.0",
+    "quality_score": 0.95,
+    "completeness_score": 0.98
+  },
+  "content": "\nDuties Act 1997 (NSW)\n\nThe Duties Act 1997 (NSW) imposes duty on various transactions including:\n\nCONVEYANCE DUTY\nConveyance duty is payable on the transfer of dutiable property, including real estate and business assets.\n\nCurrent rates for residential property:\n\u2022 $0 - $14,000: $1.25 per $100\n\u2022 $14,001 - $32,000: $175 + $1.50 per $100 (excess over $14,000)\n\u2022 $32,001 - $83,000: $270 + $1.75 per $100 (excess over $32,000)\n\u2022 $83,001 - $319,000: $1,162.50 + $3.50 per $100 (excess over $83,000)\n\u2022 $319,001 - $1,059,000: $9,422.50 + $4.50 per $100 (excess over $319,000)\n\u2022 Over $1,059,000: $42,722.50 + $5.50 per $100 (excess over $1,059,000)\n\nFIRST HOME BUYER CONCESSIONS\nFirst home buyers may be eligible for:\n\u2022 Full exemption if purchase price \u2264 $650,000\n\u2022 Concessional duty if purchase price $650,001 - $800,000\n\nFOREIGN PURCHASER ADDITIONAL DUTY\nAdditional duty of 8% applies to foreign purchasers of residential property.\n\nPARKING SPACES AND COMMERCIAL PROPERTY\nParking spaces are subject to conveyance duty when transferred:\n\u2022 Individual parking spaces: Apply commercial conveyance duty rates\n\u2022 Bundled with residential property: Include parking space value in total calculation\n\u2022 Commercial property rates apply to individual parking space transfers\n\u2022 Market value assessment required for taxation purposes\n\nKey legislation sections:\n\u2022 Section 31: Rate of conveyance duty\n\u2022 Section 54: First home buyer concessions\n\u2022 Section 104JA: Foreign purchaser additional duty\n\u2022 Section 18: Conveyance duty on commercial property and parking spaces\n"
+}

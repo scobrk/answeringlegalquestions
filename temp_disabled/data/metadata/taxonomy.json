@@ -1,0 +1,38 @@
+{
+  "taxonomy_version": "2024.1",
+  "total_categories": 7,
+  "categories": {
+    "property_related": {
+      "description": "Property-related taxes and duties",
+      "subcategories": [
+        "land_tax",
+        "transfer_duty",
+        "foreign_purchaser_duty"
+      ]
+    },
+    "business_taxation": {
+      "description": "Business-related taxes and levies",
+      "subcategories": [
+        "payroll_tax"
+      ]
+    },
+    "grants_and_schemes": {
+      "description": "Government grants and assistance schemes",
+      "subcategories": [
+        "first_home_owner_grant"
+      ]
+    },
+    "administration": {
+      "description": "Revenue administration and general provisions",
+      "subcategories": [
+        "revenue_administration"
+      ]
+    },
+    "fines_and_penalties": {
+      "description": "Fines, penalties and enforcement",
+      "subcategories": [
+        "penalty_notices"
+      ]
+    }
+  }
+}

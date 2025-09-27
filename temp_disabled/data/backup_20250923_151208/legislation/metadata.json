@@ -1,0 +1,15 @@
+{
+  "acts": [
+    "duties_act_1997",
+    "payroll_tax_act_2007",
+    "land_tax_act_1956",
+    "land_tax_management_act_1956",
+    "revenue_administration_act_1996",
+    "fines_act_1996",
+    "first_home_owner_grant_2000"
+  ],
+  "scraped_at": 1758255929.6580539,
+  "source": "NSW Revenue website + fallback content",
+  "total_acts": 7,
+  "base_url": "https://www.revenue.nsw.gov.au"
+}

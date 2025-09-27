@@ -1,0 +1,16 @@
+{
+  "start_time": "2025-09-23T15:12:30.750685",
+  "migrated_documents": 7,
+  "created_categories": [
+    "property_related/transfer_duty",
+    "fines_and_penalties/penalty_notices",
+    "business_taxation/payroll_tax",
+    "property_related/land_tax_management",
+    "property_related/land_tax",
+    "administration/revenue_administration",
+    "grants_and_schemes/first_home_owner_grant"
+  ],
+  "errors": [],
+  "warnings": [],
+  "end_time": "2025-09-23T15:12:30.758461"
+}
