@@ -1,11 +1,16 @@
 {
   "version": 2,
   "rewrites": [
+    { "source": "/api/test", "destination": "/api/test" },
     { "source": "/api/query", "destination": "/api/query" },
     { "source": "/api/health", "destination": "/api/health" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "functions": {
+    "api/test.py": {
+      "memory": 128,
+      "maxDuration": 10
+    },
     "api/query.py": {
       "memory": 1024,
       "maxDuration": 30
