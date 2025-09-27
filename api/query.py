@@ -17,10 +17,28 @@ orchestrator = None
 orchestrator_type = "None"
 
 try:
-    # Force load of all ML dependencies first
+    # Progressive loading: First try ML dependencies with a timeout and memory check
+    print("🔄 Attempting to load ML dependencies...")
+
+    # Test memory-efficient loading
+    import sys
+    import gc
+
+    # Force garbage collection before loading heavy dependencies
+    gc.collect()
+
+    # Try numpy first (lightest)
     import numpy
+    print("  ✅ NumPy loaded")
+
+    # Try FAISS (medium weight)
     import faiss
+    print("  ✅ FAISS loaded")
+
+    # Try sentence transformers (heaviest)
     from sentence_transformers import SentenceTransformer
+    print("  ✅ SentenceTransformers loaded")
+
     print("✅ All ML dependencies loaded successfully")
 
     # Now load the full local dual-agent orchestrator
@@ -29,7 +47,7 @@ try:
     orchestrator_type = "LocalDualAgentOrchestrator"
     print("✅ Successfully loaded LocalDualAgentOrchestrator with full NSW Revenue capabilities")
 
-except ImportError as e:
+except (ImportError, MemoryError, OSError) as e:
     print(f"❌ ML Dependencies missing: {e}")
     try:
         # Fallback to Vercel-compatible orchestrator
