@@ -6,6 +6,8 @@
   "rewrites": [
     { "source": "/api/test", "destination": "/api/test" },
     { "source": "/api/query", "destination": "/api/query" },
+    { "source": "/api/query_supabase", "destination": "/api/query_supabase" },
+    { "source": "/api/nsw_revenue_assistant", "destination": "/api/nsw_revenue_assistant" },
     { "source": "/api/health", "destination": "/api/health" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -22,6 +24,10 @@
     "api/query_supabase.py": {
       "memory": 512,
       "maxDuration": 30
+    },
+    "api/nsw_revenue_assistant.py": {
+      "memory": 512,
+      "maxDuration": 45
     },
     "api/health.py": {
       "memory": 256,

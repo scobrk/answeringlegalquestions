@@ -507,10 +507,8 @@
             }
         };
 
-        // API endpoint for the ACTUAL FastAPI backend with dual-agent system
-        const API_URL = window.location.hostname === 'localhost'
-            ? 'http://localhost:8000/api/query'
-            : '/api/query';  // Proxies to Render backend via Netlify redirect
+        // API endpoint for the memory-optimized NSW Revenue Assistant
+        const API_URL = '/api/nsw_revenue_assistant';
 
         async function sendQuestion() {
             const input = document.getElementById('questionInput');
@@ -541,8 +539,9 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        action: 'query',
                         query: q,
-                        enable_approval: true
+                        top_k: 5
                     })
                 });
 
