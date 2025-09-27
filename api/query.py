@@ -35,8 +35,12 @@ try:
     import faiss
     print("  ✅ FAISS loaded")
 
-    # Skip sentence transformers to save memory - use OpenAI embeddings instead
-    print("  ⚠️ SentenceTransformers skipped (memory optimization)")
+    # Try sentence transformers (now that we have more memory available)
+    try:
+        from sentence_transformers import SentenceTransformer
+        print("  ✅ SentenceTransformers loaded")
+    except ImportError:
+        print("  ⚠️ SentenceTransformers not available (using OpenAI embeddings)")
 
     print("✅ All ML dependencies loaded successfully")
 
