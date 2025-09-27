@@ -29,10 +29,10 @@
 
 #### **Environment Setup**
 ```bash
-# API Keys Configured
-OPENAI_API_KEY = "sk-proj-vLf_..." (configured)
-SUPABASE_URL = "https://mllidxvkwnwnmjipmhdv.supabase.co" (configured)
-SUPABASE_KEY = "sb_secret_cwDO..." (configured)
+# API Keys Configured (using environment variables)
+OPENAI_API_KEY = "sk-proj-***..." (configured via environment)
+SUPABASE_URL = "https://*****.supabase.co" (configured via environment)
+SUPABASE_KEY = "sb_secret_***..." (configured via environment)
 
 # Cost Control Settings
 DEFAULT_MODEL = "gpt-3.5-turbo" (cost-optimized)

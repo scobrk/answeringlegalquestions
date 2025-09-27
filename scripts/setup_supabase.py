@@ -17,9 +17,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Supabase credentials
-SUPABASE_URL = "https://mllidxvkwnwnmjipmhdv.supabase.co"
-SUPABASE_KEY = "sb_secret_cwDOerlN0w6UJ6WqdFN3uw_bkkDKVO1"
+# Supabase credentials - SECURITY: Use environment variables
+SUPABASE_URL = os.getenv('SUPABASE_URL')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY')
+
+# Validate required environment variables
+if not SUPABASE_URL:
+    raise ValueError("SUPABASE_URL environment variable is required")
+if not SUPABASE_KEY:
+    raise ValueError("SUPABASE_KEY environment variable is required")
 
 # Initialize Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)

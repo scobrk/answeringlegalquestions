@@ -21,9 +21,16 @@ class SupabaseSearchEngine:
     """
 
     def __init__(self):
-        # Initialize Supabase client
-        self.supabase_url = os.getenv('SUPABASE_URL', 'https://mllidxvkwnwnmjipmhdv.supabase.co')
-        self.supabase_key = os.getenv('SUPABASE_KEY', 'sb_secret_cwDOerlN0w6UJ6WqdFN3uw_bkkDKVO1')
+        # Initialize Supabase client - SECURITY: Use environment variables only
+        self.supabase_url = os.getenv('SUPABASE_URL')
+        self.supabase_key = os.getenv('SUPABASE_KEY')
+
+        # Validate required environment variables
+        if not self.supabase_url:
+            raise ValueError("SUPABASE_URL environment variable is required")
+        if not self.supabase_key:
+            raise ValueError("SUPABASE_KEY environment variable is required")
+
         self.supabase: Client = create_client(self.supabase_url, self.supabase_key)
 
         # Initialize OpenAI for embeddings
