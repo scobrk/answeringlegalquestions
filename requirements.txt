@@ -1,12 +1,13 @@
+# Lightweight requirements for Vercel deployment with Supabase
+# Memory-optimized for 512MB per function (total ~100MB usage)
+
+# Core dependencies only - NO ML libraries (moved to Supabase)
 openai>=1.3.0
 python-dotenv>=1.0.0
 requests>=2.31.0
-numpy>=1.24.3
-faiss-cpu>=1.7.4
-beautifulsoup4>=4.12.2
-markdown>=3.5.1
-sentence-transformers>=2.7.0
-rank-bm25>=0.2.2
-nltk>=3.8.1
-scikit-learn>=1.3.0
+
+# Supabase client for vector operations
 supabase>=2.0.0
+
+# Basic utilities
+markdown>=3.5.1
