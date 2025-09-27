@@ -8,14 +8,17 @@
   ],
   "functions": {
     "api/test.py": {
+      "runtime": "@vercel/python",
       "memory": 128,
       "maxDuration": 10
     },
     "api/query.py": {
+      "runtime": "@vercel/python",
       "memory": 1024,
       "maxDuration": 30
     },
     "api/health.py": {
+      "runtime": "@vercel/python",
       "memory": 128,
       "maxDuration": 10
     }
