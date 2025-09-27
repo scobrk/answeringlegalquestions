@@ -31,7 +31,7 @@ def test_hybrid_search():
     ]
 
     # Use OpenAI for query embeddings
-    openai.api_key = os.getenv('OPENAI_API_KEY', 'REDACTED_API_KEY')
+    openai.api_key = os.getenv('OPENAI_API_KEY')
 
     for query in test_queries:
         logger.info(f"\n🔍 Testing query: '{query}'")
@@ -124,8 +124,8 @@ def test_vector_similarity():
 if __name__ == "__main__":
     logger.info("🧪 Testing Supabase hybrid search...")
 
-    # Set OpenAI API key
-    openai.api_key = 'REDACTED_API_KEY'
+    # Set OpenAI API key from environment
+    openai.api_key = os.getenv('OPENAI_API_KEY')
 
     logger.info("1. Testing hybrid search...")
     test_hybrid_search()

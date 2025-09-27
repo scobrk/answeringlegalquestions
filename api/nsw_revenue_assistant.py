@@ -29,7 +29,7 @@ class NSWRevenueAssistant:
         self.search_engine = get_search_engine()
 
         # Initialize OpenAI
-        openai.api_key = os.getenv('OPENAI_API_KEY', 'REDACTED_API_KEY')
+        openai.api_key = os.getenv('OPENAI_API_KEY')
         self.model = os.getenv('DEFAULT_MODEL', 'gpt-4o-mini')
 
         logger.info("NSW Revenue Assistant initialized")
