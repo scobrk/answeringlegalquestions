@@ -9,6 +9,7 @@
     { "source": "/api/query_supabase", "destination": "/api/query_supabase" },
     { "source": "/api/nsw_revenue_assistant", "destination": "/api/nsw_revenue_assistant" },
     { "source": "/api/health", "destination": "/api/health" },
+    { "source": "/api/debug_env", "destination": "/api/debug_env" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "functions": {
@@ -30,6 +31,10 @@
       "maxDuration": 45
     },
     "api/health.py": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/debug_env.py": {
       "memory": 256,
       "maxDuration": 10
     }
