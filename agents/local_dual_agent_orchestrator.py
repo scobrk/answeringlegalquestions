@@ -160,36 +160,73 @@ class LocalDualAgentOrchestrator:
             return self._generate_error_response(query, str(e), start_time)
 
     def _get_local_context(self, query: str) -> List[Dict]:
-        """Get context documents using dynamic context layer"""
+        """Get context documents using hybrid search (BM25 + Legal-BERT)"""
         try:
-            from data.dynamic_context_layer import DynamicContextLayer
-            context_layer = DynamicContextLayer()
-            context_docs = context_layer.get_relevant_context(query, max_docs=5)  # Improved for quality
+            from data.hybrid_search import HybridSearchEngine
 
-            # Convert ContextDocument objects to dict format expected by primary agent
+            # Initialize hybrid search engine (cached after first load)
+            if not hasattr(self, '_hybrid_engine'):
+                logger.info("Initializing hybrid search engine...")
+                self._hybrid_engine = HybridSearchEngine()
+                self._hybrid_engine.initialize()
+                logger.info("Hybrid search engine ready")
+
+            # Perform hybrid search
+            search_results = self._hybrid_engine.search(query, top_k=5)
+
+            # Convert to format expected by primary agent
             formatted_docs = []
-            for doc in context_docs:
+            for result in search_results:
+                metadata = result['metadata']
                 formatted_doc = {
-                    'act_name': doc.act_name or doc.title,
-                    'section_number': doc.section or 'N/A',
-                    'content': doc.content,
-                    'similarity_score': doc.relevance_score,
-                    'source': doc.source,
-                    'title': doc.title
+                    'act_name': metadata.get('act_name', 'Unknown Act'),
+                    'section_number': metadata.get('section_number', 'N/A'),
+                    'content': result['content'],
+                    'similarity_score': result['combined_score'],
+                    'source': 'hybrid_search',
+                    'title': metadata.get('section_title', metadata.get('act_name', 'Unknown')),
+                    'revenue_type': metadata.get('revenue_type', 'general'),
+                    'bm25_score': result.get('bm25_score', 0.0),
+                    'semantic_score': result.get('semantic_score', 0.0)
                 }
                 formatted_docs.append(formatted_doc)
 
+            logger.info(f"Hybrid search returned {len(formatted_docs)} relevant documents")
             return formatted_docs
+
         except Exception as e:
-            logger.warning(f"Error retrieving dynamic context: {e}")
-            # Fallback to local vector store
+            logger.warning(f"Error with hybrid search: {e}")
+            # Fallback to dynamic context layer
             try:
-                from data.local_vector_store import LocalVectorStore
-                vector_store = LocalVectorStore()
-                return vector_store.search(query, k=5, threshold=0.2)
+                from data.dynamic_context_layer import DynamicContextLayer
+                context_layer = DynamicContextLayer()
+                context_docs = context_layer.get_relevant_context(query, max_docs=5)
+
+                # Convert ContextDocument objects to dict format expected by primary agent
+                formatted_docs = []
+                for doc in context_docs:
+                    formatted_doc = {
+                        'act_name': doc.act_name or doc.title,
+                        'section_number': doc.section or 'N/A',
+                        'content': doc.content,
+                        'similarity_score': doc.relevance_score,
+                        'source': doc.source,
+                        'title': doc.title
+                    }
+                    formatted_docs.append(formatted_doc)
+
+                logger.info(f"Fallback to dynamic context returned {len(formatted_docs)} documents")
+                return formatted_docs
             except Exception as e2:
-                logger.warning(f"Error retrieving local context fallback: {e2}")
-                return []
+                logger.warning(f"Error retrieving dynamic context fallback: {e2}")
+                # Final fallback to local vector store
+                try:
+                    from data.local_vector_store import LocalVectorStore
+                    vector_store = LocalVectorStore()
+                    return vector_store.search(query, k=5, threshold=0.2)
+                except Exception as e3:
+                    logger.warning(f"Error retrieving local vector store fallback: {e3}")
+                    return []
 
     def _simple_approval_process(self, primary_response: LocalPrimaryResponse, query: str) -> LocalApprovalDecision:
         """
