@@ -1,10 +1,39 @@
 """
 Vercel Serverless Function for NSW Revenue AI Assistant
-Minimal test version
+Uses the ACTUAL dual-agent orchestrator system
 """
 
 import json
+import sys
+import os
+from pathlib import Path
 from http.server import BaseHTTPRequestHandler
+
+# Add parent directory to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import the ACTUAL COMPLETE dual-agent system
+try:
+    from agents.local_dual_agent_orchestrator import LocalDualAgentOrchestrator
+    orchestrator = LocalDualAgentOrchestrator()
+    print("Successfully loaded LocalDualAgentOrchestrator")
+except ImportError as e:
+    print(f"LocalDualAgentOrchestrator import error: {e}")
+    # Fallback to Vercel-compatible orchestrator
+    try:
+        from agents.vercel_dual_agent_orchestrator import VercelDualAgentOrchestrator
+        orchestrator = VercelDualAgentOrchestrator()
+        print("Successfully loaded VercelDualAgentOrchestrator")
+    except ImportError as e2:
+        print(f"VercelDualAgentOrchestrator import error: {e2}")
+        # Final fallback to basic orchestrator
+        try:
+            from agents.dual_agent_orchestrator import DualAgentOrchestrator
+            orchestrator = DualAgentOrchestrator()
+            print("Successfully loaded DualAgentOrchestrator")
+        except Exception as e3:
+            print(f"Failed to load any orchestrator: {e3}")
+            orchestrator = None
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -35,14 +64,36 @@ class handler(BaseHTTPRequestHandler):
                     'source_documents': [],
                     'review_status': 'error'
                 }
-            else:
-                # Minimal test response
+            elif orchestrator:
+                # Process through the ACTUAL dual-agent system
+                result = orchestrator.process_query(
+                    query=query,
+                    enable_approval=data.get('enable_approval', True),
+                    include_metadata=data.get('include_metadata', True)
+                )
+
                 response = {
-                    'content': f'Test response for: {query}. NSW Revenue AI Assistant is being deployed.',
-                    'confidence_score': 0.5,
-                    'citations': ['Test citation'],
-                    'source_documents': ['Test deployment'],
-                    'review_status': 'test'
+                    'content': result.final_response.content,
+                    'confidence_score': result.final_response.confidence_score,
+                    'citations': result.final_response.citations,
+                    'source_documents': result.final_response.source_documents,
+                    'review_status': result.final_response.review_status,
+                    'specific_information_required': result.final_response.specific_information_required,
+                    'processing_metadata': {
+                        'primary_confidence': result.primary_response.confidence,
+                        'approval_decision': result.approval_decision.is_approved,
+                        'processing_time': result.total_processing_time,
+                        'timestamp': result.timestamp.isoformat()
+                    }
+                }
+            else:
+                # Fallback if orchestrator fails to load
+                response = {
+                    'content': 'Service temporarily unavailable. Please try again.',
+                    'confidence_score': 0,
+                    'citations': [],
+                    'source_documents': [],
+                    'review_status': 'error'
                 }
 
             self.wfile.write(json.dumps(response).encode())
