@@ -12,21 +12,28 @@ from http.server import BaseHTTPRequestHandler
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-# Import the ACTUAL COMPLETE dual-agent system
+# Import the dual-agent system - Vercel compatible version
 try:
     from agents.local_dual_agent_orchestrator import LocalDualAgentOrchestrator
     orchestrator = LocalDualAgentOrchestrator()
     print("Successfully loaded LocalDualAgentOrchestrator")
 except ImportError as e:
-    print(f"Import error: {e}")
-    # Fallback to basic orchestrator if local not available
+    print(f"LocalDualAgentOrchestrator import error: {e}")
+    # Fallback to Vercel-compatible orchestrator
     try:
-        from agents.dual_agent_orchestrator import DualAgentOrchestrator
-        orchestrator = DualAgentOrchestrator()
-        print("Successfully loaded DualAgentOrchestrator")
-    except Exception as e2:
-        print(f"Failed to load any orchestrator: {e2}")
-        orchestrator = None
+        from agents.vercel_dual_agent_orchestrator import VercelDualAgentOrchestrator
+        orchestrator = VercelDualAgentOrchestrator()
+        print("Successfully loaded VercelDualAgentOrchestrator")
+    except ImportError as e2:
+        print(f"VercelDualAgentOrchestrator import error: {e2}")
+        # Final fallback to basic orchestrator
+        try:
+            from agents.dual_agent_orchestrator import DualAgentOrchestrator
+            orchestrator = DualAgentOrchestrator()
+            print("Successfully loaded DualAgentOrchestrator")
+        except Exception as e3:
+            print(f"Failed to load any orchestrator: {e3}")
+            orchestrator = None
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):

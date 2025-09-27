@@ -7,9 +7,8 @@
   ],
   "functions": {
     "api/query.py": {
-      "memory": 2048,
-      "maxDuration": 60,
-      "includeFiles": "agents/**,data/**"
+      "memory": 1024,
+      "maxDuration": 30
     },
     "api/health.py": {
       "memory": 128,
