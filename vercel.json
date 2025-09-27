@@ -17,8 +17,7 @@
     "api/query.py": {
       "memory": 2048,
       "maxDuration": 60,
-      "includeFiles": "{data/vector_index/**,data/legislation_v2/**,data/metadata/**,agents/**}",
-      "runtime": "python3.12"
+      "includeFiles": "{data/vector_index/**,data/legislation_v2/**,data/metadata/**,agents/**}"
     },
     "api/health.py": {
       "memory": 256,
